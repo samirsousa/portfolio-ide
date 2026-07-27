@@ -86,5 +86,15 @@ O projeto é compilado como um site estático e enviado para a branch gh-pages:
 npm run deploy
 ```
 
+👨‍💻 Autor
 
+Samir Firmino Martins de Sousa
+
+Estudante de Sistemas de Informação (UniLaSalle - RJ) & Estagiário em Análise de Dados e Automação
+
+💼 LinkedIn: linkedin.com/in/samir-firmino-573322265
+
+🐙 GitHub: github.com/samirsousa
+
+✉️ E-mail: samir.sfmss@gmail.com
 

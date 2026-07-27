@@ -23,25 +23,19 @@ export const Editor: React.FC<EditorProps> = ({
   theme = 'onedark',
   onSelectTheme,
 }) => {
-  // Estado para controlar a animação de introdução (Efeito Yash Dhingra em PT-BR)
-  const [introText, setIntroText] = useState('');
-  const [isIntroDone, setIsIntroDone] = useState(false);
+  // Estado do efeito de digitação animado para o cargo (frase em azul)
+  const [typedTitle, setTypedTitle] = useState('');
+  const fullTitle = 'Estagiário de TI / Análise de Dados';
 
-  const fullIntroMessage = 'e se o seu portfólio...\n...fosse uma IDE?';
-
-  // Efeito de digitação (Typing Effect)
   useEffect(() => {
     let index = 0;
     const timer = setInterval(() => {
-      setIntroText(fullIntroMessage.slice(0, index));
+      setTypedTitle(fullTitle.slice(0, index));
       index++;
-      if (index > fullIntroMessage.length) {
+      if (index > fullTitle.length) {
         clearInterval(timer);
-        setTimeout(() => {
-          setIsIntroDone(true);
-        }, 900); // Pausa estratégica antes de revelar a IDE
       }
-    }, 45);
+    }, 50);
 
     return () => clearInterval(timer);
   }, []);
@@ -115,37 +109,9 @@ export const Editor: React.FC<EditorProps> = ({
     });
   };
 
-  // 1. ANIMAÇÃO DE INTRODUÇÃO (Roda primeiro)
-  if (!isIntroDone) {
-    const lines = introText.split('\n');
-    const firstLine = lines[0] || '';
-    const secondLine = lines[1] || '';
-
-    return (
-      <div className={`flex-1 flex flex-col items-center justify-center ${currentStyle.bg} font-mono p-6 transition-all select-none`}>
-        <div className="text-left space-y-1 max-w-md w-full text-base sm:text-lg font-bold leading-relaxed">
-          {/* Primeira Linha: Texto em BRANCO */}
-          <div className="text-white min-h-[28px]">
-            {firstLine}
-            {lines.length === 1 && <span className="animate-pulse text-white">_</span>}
-          </div>
-
-          {/* Segunda Linha: Texto em AZUL (VS Code) */}
-          {lines.length > 1 && (
-            <div className="text-[#007acc] min-h-[28px]">
-              {secondLine}
-              <span className="animate-pulse text-[#007acc]">_</span>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  // 2. EXIBIÇÃO COMPLETA DA IDE APÓS A INTRO
   return (
     <div className={`flex-1 flex flex-col ${currentStyle.bg} overflow-hidden transition-colors duration-200`}>
-      {/* Abas */}
+      {/* Abas Superiores (Tabs) */}
       <div className="flex bg-[#252526] border-b border-white/10 overflow-x-auto scrollbar-none select-none">
         {openFiles.map((file) => {
           const isActive = file.id === activeFile.id;
@@ -172,21 +138,20 @@ export const Editor: React.FC<EditorProps> = ({
         })}
       </div>
 
-      {/* Hero Banner Estilo Yash Dhingra */}
-      <div className={`${currentStyle.bannerBg} border-b border-white/10 p-4 sm:p-6 flex flex-col gap-4 select-none`}>
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-bold text-white tracking-tight font-mono">Samir Firmino ;</h1>
-              <span className="bg-[#007acc]/20 text-[#007acc] border border-[#007acc]/40 text-[10px] font-mono px-2 py-0.5 rounded-full">
-                Data & Software Jr
-              </span>
-            </div>
-            <p className="text-xs text-gray-400 mt-1">
-              Estudante de Sistemas de Informação • Estagiário em Análise de Dados & Automação @ ANP
-            </p>
-          </div>
+      {/* Hero Banner Estilo Yash Dhingra Exact Copy */}
+      <div className={`${currentStyle.bannerBg} border-b border-white/10 p-5 sm:p-7 flex flex-col gap-4 select-none font-mono`}>
+        {/* Linha 1: Comentário em cinza */}
+        <p className="text-xs sm:text-sm text-gray-500 font-mono">
+          // Fala aí, obrigado por abrir meu editor
+        </p>
 
+        {/* Linha 2 & Botões: Nome Grande e Ações */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Samir Firmino <span className="text-[#007acc] font-normal font-sans">;</span>
+          </h1>
+
+          {/* Botões mantidos */}
           <div className="flex flex-wrap gap-2 text-xs">
             {onToggleMode && (
               <button
@@ -205,22 +170,25 @@ export const Editor: React.FC<EditorProps> = ({
           </div>
         </div>
 
-        {/* Badges de Impacto */}
-        <div className="flex flex-wrap gap-2 text-[11px] font-mono">
-          <span className="bg-[#252526] border border-white/10 text-gray-300 px-2.5 py-1 rounded">
-            ⚡ <strong className="text-white">10%</strong> redução de horas mensais na ANP
-          </span>
-          <span className="bg-[#252526] border border-white/10 text-gray-300 px-2.5 py-1 rounded">
-            🛢️ ETL em <strong className="text-white">Python / SQL / OracleDB</strong>
-          </span>
-          <span className="bg-[#252526] border border-white/10 text-gray-300 px-2.5 py-1 rounded">
-            📊 Power BI <strong className="text-white">DAX & Power Query</strong>
-          </span>
+        {/* Linha 3: Frase em AZUL animada com typing effect */}
+        <div className="text-sm sm:text-base text-[#007acc] font-semibold min-h-[24px] flex items-center">
+          <span>{typedTitle}</span>
+          <span className="animate-pulse text-[#007acc] ml-0.5">_</span>
         </div>
 
-        {/* Temas */}
+        {/* Linha 4 & 5: Parágrafos de Resumo Profissional */}
+        <div className="space-y-2 text-xs sm:text-sm text-gray-300 leading-relaxed font-sans max-w-4xl pt-1">
+          <p>
+            Estudante de Sistemas de Informação (UniLaSalle - RJ) com foco em Análise de Dados, automação de rotinas e desenvolvimento de sistemas.
+          </p>
+          <p className="text-gray-400">
+            <strong className="text-white font-mono">Hoje:</strong> atuando como estagiário na Agência Nacional do Petróleo (ANP), construindo pipelines ETL em Python, otimizando bancos SQL e desenvolvendo dashboards estratégicos em Power BI.
+          </p>
+        </div>
+
+        {/* Seleção de Temas no Rodapé do Banner */}
         {onSelectTheme && (
-          <div className="flex items-center gap-2 text-[11px] text-gray-400 pt-2 border-t border-white/5 font-mono">
+          <div className="flex items-center gap-2 text-[11px] text-gray-400 pt-3 border-t border-white/5 font-mono mt-1">
             <span>One-click Themes:</span>
             <button
               onClick={() => onSelectTheme('onedark')}
@@ -250,7 +218,7 @@ export const Editor: React.FC<EditorProps> = ({
         )}
       </div>
 
-      {/* Editor de Código */}
+      {/* Editor de Código Principal */}
       <div className={`flex-1 overflow-auto p-4 font-mono text-sm leading-relaxed flex ${currentStyle.text}`}>
         <div className="flex flex-col text-right pr-4 text-gray-600 select-none border-r border-white/5 mr-4 text-xs space-y-1">
           {activeFile.content.split('\n').map((_, index) => (

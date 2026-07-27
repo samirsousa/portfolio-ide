@@ -23,13 +23,13 @@ export const Editor: React.FC<EditorProps> = ({
   theme = 'onedark',
   onSelectTheme,
 }) => {
-  // Estado para controlar a animação de introdução (Efeito Yash Dhingra)
+  // Estado para controlar a animação de introdução (Efeito Yash Dhingra em PT-BR)
   const [introText, setIntroText] = useState('');
   const [isIntroDone, setIsIntroDone] = useState(false);
 
-  const fullIntroMessage = 'what if your portfolio...\n...was an IDE?';
+  const fullIntroMessage = 'e se o seu portfólio...\n...fosse uma IDE?';
 
-  // Efeito de digitação (Typing Effect) ao carregar o site
+  // Efeito de digitação (Typing Effect)
   useEffect(() => {
     let index = 0;
     const timer = setInterval(() => {
@@ -39,9 +39,9 @@ export const Editor: React.FC<EditorProps> = ({
         clearInterval(timer);
         setTimeout(() => {
           setIsIntroDone(true);
-        }, 800); // Pausa estratégica antes de revelar a IDE
+        }, 900); // Pausa estratégica antes de revelar a IDE
       }
-    }, 45); // Velocidade da digitação
+    }, 45);
 
     return () => clearInterval(timer);
   }, []);
@@ -117,13 +117,26 @@ export const Editor: React.FC<EditorProps> = ({
 
   // 1. ANIMAÇÃO DE INTRODUÇÃO (Roda primeiro)
   if (!isIntroDone) {
+    const lines = introText.split('\n');
+    const firstLine = lines[0] || '';
+    const secondLine = lines[1] || '';
+
     return (
-      <div className={`flex-1 flex flex-col items-center justify-center ${currentStyle.bg} font-mono p-6 transition-all`}>
-        <div className="text-left space-y-2 max-w-md w-full">
-          <pre className="text-sm sm:text-base text-green-400 font-bold whitespace-pre-wrap leading-relaxed">
-            {introText}
-            <span className="animate-pulse text-white">_</span>
-          </pre>
+      <div className={`flex-1 flex flex-col items-center justify-center ${currentStyle.bg} font-mono p-6 transition-all select-none`}>
+        <div className="text-left space-y-1 max-w-md w-full text-base sm:text-lg font-bold leading-relaxed">
+          {/* Primeira Linha: Texto em BRANCO */}
+          <div className="text-white min-h-[28px]">
+            {firstLine}
+            {lines.length === 1 && <span className="animate-pulse text-white">_</span>}
+          </div>
+
+          {/* Segunda Linha: Texto em AZUL (VS Code) */}
+          {lines.length > 1 && (
+            <div className="text-[#007acc] min-h-[28px]">
+              {secondLine}
+              <span className="animate-pulse text-[#007acc]">_</span>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -131,7 +144,7 @@ export const Editor: React.FC<EditorProps> = ({
 
   // 2. EXIBIÇÃO COMPLETA DA IDE APÓS A INTRO
   return (
-    <div className={`flex-1 flex flex-col ${currentStyle.bg} overflow-hidden transition-colors duration-200 animate-fadeIn`}>
+    <div className={`flex-1 flex flex-col ${currentStyle.bg} overflow-hidden transition-colors duration-200`}>
       {/* Abas */}
       <div className="flex bg-[#252526] border-b border-white/10 overflow-x-auto scrollbar-none select-none">
         {openFiles.map((file) => {
@@ -159,7 +172,7 @@ export const Editor: React.FC<EditorProps> = ({
         })}
       </div>
 
-      {/* Hero Banner */}
+      {/* Hero Banner Estilo Yash Dhingra */}
       <div className={`${currentStyle.bannerBg} border-b border-white/10 p-4 sm:p-6 flex flex-col gap-4 select-none`}>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
@@ -192,7 +205,7 @@ export const Editor: React.FC<EditorProps> = ({
           </div>
         </div>
 
-        {/* Badges do Yash */}
+        {/* Badges de Impacto */}
         <div className="flex flex-wrap gap-2 text-[11px] font-mono">
           <span className="bg-[#252526] border border-white/10 text-gray-300 px-2.5 py-1 rounded">
             ⚡ <strong className="text-white">10%</strong> redução de horas mensais na ANP

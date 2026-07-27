@@ -23,11 +23,36 @@ export const Editor: React.FC<EditorProps> = ({
   theme = 'onedark',
   onSelectTheme,
 }) => {
-  // Estado do efeito de digitação animado para o cargo (frase em azul)
+  // 1. Estado da Animação Inicial de Entrada ("e se...")
+  const [introText, setIntroText] = useState('');
+  const [isIntroDone, setIsIntroDone] = useState(false);
+  const fullIntroMessage = 'e se o seu portfólio...\n...fosse uma IDE?';
+
+  // 2. Estado da Animação do Cargo no Banner Hero
   const [typedTitle, setTypedTitle] = useState('');
   const fullTitle = 'Estagiário de TI / Análise de Dados';
 
+  // Executa a primeira animação de introdução
   useEffect(() => {
+    let index = 0;
+    const timer = setInterval(() => {
+      setIntroText(fullIntroMessage.slice(0, index));
+      index++;
+      if (index > fullIntroMessage.length) {
+        clearInterval(timer);
+        setTimeout(() => {
+          setIsIntroDone(true);
+        }, 800);
+      }
+    }, 45);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Executa a digitação do cargo assim que a intro inicial termina
+  useEffect(() => {
+    if (!isIntroDone) return;
+
     let index = 0;
     const timer = setInterval(() => {
       setTypedTitle(fullTitle.slice(0, index));
@@ -35,10 +60,10 @@ export const Editor: React.FC<EditorProps> = ({
       if (index > fullTitle.length) {
         clearInterval(timer);
       }
-    }, 50);
+    }, 45);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isIntroDone]);
 
   // Paleta de cores dinâmica por tema
   const themeStyles = {
@@ -109,6 +134,34 @@ export const Editor: React.FC<EditorProps> = ({
     });
   };
 
+  // 1. TELA DE INTRODUÇÃO ANIMADA (Branco + Azul)
+  if (!isIntroDone) {
+    const lines = introText.split('\n');
+    const firstLine = lines[0] || '';
+    const secondLine = lines[1] || '';
+
+    return (
+      <div className={`flex-1 flex flex-col items-center justify-center ${currentStyle.bg} font-mono p-6 transition-all select-none`}>
+        <div className="text-left space-y-1 max-w-md w-full text-base sm:text-lg font-bold leading-relaxed">
+          {/* Linha 1 em Branco */}
+          <div className="text-white min-h-[28px]">
+            {firstLine}
+            {lines.length === 1 && <span className="animate-pulse text-white">_</span>}
+          </div>
+
+          {/* Linha 2 em Azul */}
+          {lines.length > 1 && (
+            <div className="text-[#007acc] min-h-[28px]">
+              {secondLine}
+              <span className="animate-pulse text-[#007acc]">_</span>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // 2. EXIBIÇÃO COMPLETA DA IDE APÓS A INTRO
   return (
     <div className={`flex-1 flex flex-col ${currentStyle.bg} overflow-hidden transition-colors duration-200`}>
       {/* Abas Superiores (Tabs) */}
@@ -140,18 +193,17 @@ export const Editor: React.FC<EditorProps> = ({
 
       {/* Hero Banner Estilo Yash Dhingra Exact Copy */}
       <div className={`${currentStyle.bannerBg} border-b border-white/10 p-5 sm:p-7 flex flex-col gap-4 select-none font-mono`}>
-        {/* Linha 1: Comentário em cinza */}
+        {/* Comentário de código em cinza */}
         <p className="text-xs sm:text-sm text-gray-500 font-mono">
           // Fala aí, obrigado por abrir meu editor
         </p>
 
-        {/* Linha 2 & Botões: Nome Grande e Ações */}
+        {/* Nome Grande e Botões */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Samir Firmino <span className="text-[#007acc] font-normal font-sans">;</span>
           </h1>
 
-          {/* Botões mantidos */}
           <div className="flex flex-wrap gap-2 text-xs">
             {onToggleMode && (
               <button
@@ -170,13 +222,13 @@ export const Editor: React.FC<EditorProps> = ({
           </div>
         </div>
 
-        {/* Linha 3: Frase em AZUL animada com typing effect */}
+        {/* Frase do Cargo em AZUL animada */}
         <div className="text-sm sm:text-base text-[#007acc] font-semibold min-h-[24px] flex items-center">
           <span>{typedTitle}</span>
           <span className="animate-pulse text-[#007acc] ml-0.5">_</span>
         </div>
 
-        {/* Linha 4 & 5: Parágrafos de Resumo Profissional */}
+        {/* Parágrafos do Resumo Profissional */}
         <div className="space-y-2 text-xs sm:text-sm text-gray-300 leading-relaxed font-sans max-w-4xl pt-1">
           <p>
             Estudante de Sistemas de Informação (UniLaSalle - RJ) com foco em Análise de Dados, automação de rotinas e desenvolvimento de sistemas.
@@ -186,7 +238,7 @@ export const Editor: React.FC<EditorProps> = ({
           </p>
         </div>
 
-        {/* Seleção de Temas no Rodapé do Banner */}
+        {/* Temas */}
         {onSelectTheme && (
           <div className="flex items-center gap-2 text-[11px] text-gray-400 pt-3 border-t border-white/5 font-mono mt-1">
             <span>One-click Themes:</span>

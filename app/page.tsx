@@ -17,10 +17,10 @@ export default function Home() {
   const [isReadingMode, setIsReadingMode] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(true);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [theme, setTheme] = useState<'onedark' | 'dracula' | 'monokai'>('onedark');
   const [terminalOutput, setTerminalOutput] = useState<string[]>([]);
 
-  // Captura do atalho Ctrl + K / Cmd + K
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -49,7 +49,6 @@ export default function Home() {
     }
   };
 
-  // Função para executar o arquivo ativo com saídas dinâmicas no Terminal
   const handleRunScript = (file: FileItem) => {
     setIsTerminalOpen(true);
 
@@ -120,7 +119,6 @@ export default function Home() {
   if (isReadingMode) {
     return (
       <div className="min-h-screen bg-[#121212] text-white p-6 sm:p-12 max-w-4xl mx-auto font-sans leading-relaxed">
-        {/* Cabeçalho */}
         <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-700 pb-6 mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Samir Firmino Martins de Sousa</h1>
@@ -159,7 +157,6 @@ export default function Home() {
         </header>
 
         <div className="space-y-8">
-          {/* Objetivo Profissional */}
           <section>
             <h2 className="text-xl font-semibold text-[#007acc] border-b border-gray-800 pb-1 mb-3">
               Objetivo Profissional
@@ -169,7 +166,6 @@ export default function Home() {
             </p>
           </section>
 
-          {/* Formação Acadêmica */}
           <section>
             <h2 className="text-xl font-semibold text-[#007acc] border-b border-gray-800 pb-1 mb-3">
               Formação Acadêmica
@@ -183,7 +179,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Experiência Profissional */}
           <section>
             <h2 className="text-xl font-semibold text-[#007acc] border-b border-gray-800 pb-1 mb-4">
               Experiência Profissional
@@ -221,7 +216,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Projetos Acadêmicos / Pessoais */}
           <section>
             <h2 className="text-xl font-semibold text-[#007acc] border-b border-gray-800 pb-1 mb-3">
               Projetos Acadêmicos / Pessoais
@@ -237,7 +231,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Habilidades Técnicas */}
           <section>
             <h2 className="text-xl font-semibold text-[#007acc] border-b border-gray-800 pb-1 mb-3">
               Habilidades Técnicas
@@ -270,7 +263,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Licenças e Certificados */}
           <section>
             <h2 className="text-xl font-semibold text-[#007acc] border-b border-gray-800 pb-1 mb-3">
               Licenças e Certificados
@@ -288,7 +280,6 @@ export default function Home() {
 
   return (
     <div className={`flex flex-col h-screen w-screen overflow-hidden ${themeClasses[theme]} font-sans transition-colors duration-200`}>
-      {/* Barra de Título Superior (Estática) */}
       <TitleBar />
 
       <CommandPalette
@@ -299,17 +290,27 @@ export default function Home() {
         onSelectTheme={(t) => setTheme(t)}
       />
 
-      <div className="flex flex-1 overflow-hidden">
-        {/* Activity Bar Lateral Esquerda (Estática) */}
+      <div className="flex flex-1 overflow-hidden relative">
         <ActivityBar />
+
+        {/* Botão Flutuante Mobile para abrir o Explorador quando fechado */}
+        <button
+          onClick={() => setIsSidebarOpen(true)}
+          className="md:hidden fixed bottom-12 left-3 z-20 bg-[#007acc] text-white p-3 rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform"
+          title="Abrir Explorador de Arquivos"
+        >
+          📁
+        </button>
 
         <Sidebar
           files={files}
           activeFileId={activeFile.id}
           onSelectFile={handleSelectFile}
+          isOpen={isSidebarOpen}
+          onToggle={() => setIsSidebarOpen((prev) => !prev)}
         />
 
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 flex flex-col overflow-hidden w-full">
           <Editor
             openFiles={openFiles}
             activeFile={activeFile}

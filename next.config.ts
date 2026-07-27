@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-   basePath: '/nome-do-seu-repositorio',
+   basePath: '/portfolio-ide',
 };
 
 export default nextConfig;

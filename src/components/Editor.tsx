@@ -195,7 +195,7 @@ export const Editor: React.FC<EditorProps> = ({
       <div className={`${currentStyle.bannerBg} border-b border-white/10 p-5 sm:p-7 flex flex-col gap-4 select-none font-mono`}>
         {/* Comentário de código em cinza */}
         <p className="text-xs sm:text-sm text-gray-500 font-mono">
-          // Fala aí, obrigado por abrir meu editor
+          // Fala aí, obrigado por abrir meu portfólio!
         </p>
 
         {/* Nome Grande e Botões */}

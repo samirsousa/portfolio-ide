@@ -90,7 +90,7 @@ npm run deploy
 
 Samir Firmino Martins de Sousa
 
-Estudante de Sistemas de Informação (UniLaSalle - RJ) & Estagiário em Análise de Dados e Automação
+Estudante de Sistemas de Informação (UniLaSalle - RJ) 
 
 💼 LinkedIn: linkedin.com/in/samir-firmino-573322265
 

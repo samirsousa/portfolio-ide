@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FileItem } from '../data/filesData';
+import { FileIcon } from './FileIcon';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -16,70 +17,89 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   onSelectFile,
   onSelectTheme,
 }) => {
-  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('');
 
   if (!isOpen) return null;
 
+  const filteredFiles = files.filter((f) =>
+    f.name.toLowerCase().includes(query.toLowerCase())
+  );
+
   return (
-    <div 
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-start justify-center pt-20"
+    <div
       onClick={onClose}
+      className="fixed inset-0 bg-black/60 z-50 flex items-start justify-center pt-20 backdrop-blur-sm select-none"
     >
-      <div 
-        className="bg-[#252526] border border-[#454545] w-full max-w-xl rounded-lg shadow-2xl overflow-hidden font-sans"
+      <div
         onClick={(e) => e.stopPropagation()}
+        className="bg-[#252526] border border-white/10 rounded-lg shadow-2xl w-full max-w-lg overflow-hidden text-xs text-gray-200"
       >
-        <div className="p-3 border-b border-[#333333] flex items-center gap-2">
-          <span className="text-gray-400">🔍</span>
+        <div className="p-2 border-b border-white/10">
           <input
             type="text"
-            placeholder="Digite para buscar arquivos ou temas (ex: dracula, sobre)..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="bg-transparent w-full text-white outline-none text-sm font-mono placeholder-gray-500"
             autoFocus
+            placeholder="Digite para buscar um arquivo ou alterar tema..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full bg-[#1e1e1e] border border-white/10 rounded px-3 py-2 text-white outline-none focus:border-[#007acc]"
           />
         </div>
 
-        <div className="max-h-64 overflow-y-auto p-2 text-sm text-[#cccccc] space-y-1">
-          <div className="text-[10px] uppercase font-bold text-gray-500 px-2 py-1">Arquivos</div>
-          {files
-            .filter((f) => f.name.toLowerCase().includes(search.toLowerCase()))
-            .map((f) => (
-              <button
-                key={f.id}
-                onClick={() => {
-                  onSelectFile(f);
-                  onClose();
-                }}
-                className="w-full text-left px-3 py-1.5 rounded hover:bg-[#04395e] hover:text-white flex items-center justify-between font-mono"
-              >
-                <span>{f.icon} {f.name}</span>
-                <span className="text-xs text-gray-500">Abrir arquivo</span>
-              </button>
-            ))}
+        <div className="max-h-60 overflow-y-auto p-1">
+          <div className="px-2 py-1 text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+            Arquivos
+          </div>
+          {filteredFiles.map((file) => (
+            <button
+              key={file.id}
+              onClick={() => {
+                onSelectFile(file);
+                onClose();
+              }}
+              className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#04395e] hover:text-white rounded text-left transition-colors"
+            >
+              <FileIcon name={file.name} />
+              <span>{file.name}</span>
+            </button>
+          ))}
 
-          <div className="text-[10px] uppercase font-bold text-gray-500 px-2 py-1 pt-2">Temas</div>
+          <div className="px-2 py-1 text-[10px] text-gray-500 font-bold uppercase tracking-wider mt-2 border-t border-white/5 pt-2">
+            Temas do VS Code
+          </div>
           <button
-            onClick={() => { onSelectTheme('onedark'); onClose(); }}
-            className="w-full text-left px-3 py-1.5 rounded hover:bg-[#04395e] hover:text-white flex items-center justify-between"
+            onClick={() => {
+              onSelectTheme('onedark');
+              onClose();
+            }}
+            className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#04395e] hover:text-white rounded text-left transition-colors"
           >
-            <span>🎨 Tema: One Dark Pro (Escuro)</span>
+            <span>🎨</span>
+            <span>Mudar Tema: One Dark Pro</span>
           </button>
           <button
-            onClick={() => { onSelectTheme('dracula'); onClose(); }}
-            className="w-full text-left px-3 py-1.5 rounded hover:bg-[#04395e] hover:text-white flex items-center justify-between"
+            onClick={() => {
+              onSelectTheme('dracula');
+              onClose();
+            }}
+            className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#04395e] hover:text-white rounded text-left transition-colors"
           >
-            <span>🧛 Tema: Dracula (Roxo)</span>
+            <span>🎨</span>
+            <span>Mudar Tema: Dracula</span>
           </button>
           <button
-            onClick={() => { onSelectTheme('monokai'); onClose(); }}
-            className="w-full text-left px-3 py-1.5 rounded hover:bg-[#04395e] hover:text-white flex items-center justify-between"
+            onClick={() => {
+              onSelectTheme('monokai');
+              onClose();
+            }}
+            className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#04395e] hover:text-white rounded text-left transition-colors"
           >
-            <span>🍌 Tema: Monokai (Sépia/Amarelo)</span>
+            <span>🎨</span>
+            <span>Mudar Tema: Monokai</span>
           </button>
         </div>
       </div>
     </div>
   );
 };
+
+export default CommandPalette;

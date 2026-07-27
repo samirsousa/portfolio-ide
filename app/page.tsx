@@ -118,7 +118,6 @@ export default function Home() {
     monokai: 'bg-[#272822] text-[#f8f8f2]',
   };
 
-  // 📄 SE MODO LEITURA RH ESTIVER ATIVO
   if (isReadingMode) {
     return (
       <div className="min-h-screen bg-[#121212] text-white p-6 sm:p-12 max-w-4xl mx-auto font-sans leading-relaxed">
@@ -283,7 +282,7 @@ export default function Home() {
 
   return (
     <>
-      {/* 📱 NO MOBILE: Exibe o Feed por padrão com o botão de alternar para a IDE */}
+      {/* Mobile View */}
       <div className="block md:hidden">
         {mobileView === 'feed' ? (
           <MobilePortfolio onSwitchToIde={() => setMobileView('ide')} />
@@ -295,7 +294,7 @@ export default function Home() {
                 onClick={() => setMobileView('feed')}
                 className="bg-black/30 hover:bg-black/50 px-2 py-0.5 rounded text-[11px]"
               >
-                📱 Voltar ao Feed Clean
+                📱 Voltar ao Feed
               </button>
             </div>
 
@@ -317,7 +316,9 @@ export default function Home() {
                   onSelectFile={setActiveFile}
                   onCloseTab={handleCloseTab}
                   onRunScript={handleRunScript}
+                  onToggleMode={() => setIsReadingMode(true)}
                   theme={theme}
+                  onSelectTheme={setTheme}
                 />
                 <Terminal
                   isOpen={isTerminalOpen}
@@ -337,7 +338,7 @@ export default function Home() {
         )}
       </div>
 
-      {/* 💻 NO DESKTOP: Sempre exibe a IDE do VS Code Completa */}
+      {/* Desktop View */}
       <div className={`hidden md:flex flex-col h-screen w-screen overflow-hidden ${themeClasses[theme]} font-sans transition-colors duration-200`}>
         <TitleBar />
 
@@ -367,7 +368,9 @@ export default function Home() {
               onSelectFile={setActiveFile}
               onCloseTab={handleCloseTab}
               onRunScript={handleRunScript}
+              onToggleMode={() => setIsReadingMode(true)}
               theme={theme}
+              onSelectTheme={setTheme}
             />
             <Terminal
               isOpen={isTerminalOpen}

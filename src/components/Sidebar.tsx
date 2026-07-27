@@ -1,5 +1,6 @@
 import React from 'react';
 import { FileItem } from '../data/filesData';
+import { FileIcon } from './FileIcon';
 
 interface SidebarProps {
   files: FileItem[];
@@ -18,7 +19,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const handleFileClick = (file: FileItem) => {
     onSelectFile(file);
-    // Fecha a sidebar no mobile automaticamente ao escolher um arquivo
     if (window.innerWidth < 768) {
       onToggle();
     }
@@ -26,7 +26,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
-      {/* Overlay escuro de fundo quando o menu estiver aberto no Mobile */}
       {isOpen && (
         <div
           onClick={onToggle}
@@ -34,32 +33,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
         />
       )}
 
-      {/* Painel da Sidebar */}
       <aside
         className={`bg-[#252526] text-[#cccccc] flex-col border-r border-white/10 select-none z-40 transition-all duration-300 ease-in-out shrink-0
           fixed md:relative top-0 bottom-0 left-0
           ${isOpen ? 'translate-x-0 w-64' : '-translate-x-full md:translate-x-0 w-64 md:w-60'}
         `}
       >
-        {/* Título da Sidebar */}
         <div className="px-4 py-3 md:py-2.5 text-[11px] font-bold tracking-wider text-gray-400 uppercase flex items-center justify-between border-b border-white/5">
-          <span>Explorador</span>
+          <span>EXPLORADOR</span>
           <button
             onClick={onToggle}
             className="md:hidden text-gray-400 hover:text-white p-1"
-            title="Fechar menu"
           >
             ✕
           </button>
         </div>
 
-        {/* Árvore de Arquivos */}
         <div className="p-2 overflow-y-auto">
-          <div className="text-xs font-semibold text-gray-400 mb-2 px-2 flex items-center gap-1">
-            <span>▼</span> portfolio-samir
+          <div className="text-xs font-semibold text-gray-400 mb-2 px-2 flex items-center gap-1.5">
+            <span className="text-[10px]">▼</span>
+            <FileIcon name="folder" isFolder={true} isOpen={true} />
+            <span>portfolio-samir</span>
           </div>
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-0.5">
             {files.map((file) => {
               const isActive = file.id === activeFileId;
 
@@ -67,13 +64,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={file.id}
                   onClick={() => handleFileClick(file)}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded text-xs text-left transition-colors ${
+                  className={`w-full flex items-center gap-2 px-3 py-1.5 rounded text-xs text-left transition-colors ${
                     isActive
                       ? 'bg-[#37373d] text-white font-medium'
                       : 'hover:bg-[#2a2d2e] text-gray-300'
                   }`}
                 >
-                  <span className="text-base">{file.icon}</span>
+                  <FileIcon name={file.name} />
                   <span className="truncate">{file.name}</span>
                 </button>
               );

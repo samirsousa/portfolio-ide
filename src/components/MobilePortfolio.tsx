@@ -24,7 +24,8 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
       {/* Perfil Header Minimalista */}
       <header className="flex flex-col gap-3 border-b border-gray-800 pb-5">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#007acc] to-purple-600 flex items-center justify-center text-xl font-bold text-white shadow-md">
+          <div style={{ background: 'linear-gradient(to top right, #007acc, #9333ea)' }}
+            className="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold text-white shadow-md">
             SF
           </div>
           <div>
@@ -63,11 +64,10 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-colors ${
-              activeTab === tab.id
+            className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-colors ${activeTab === tab.id
                 ? 'bg-[#1f6feb] text-white font-medium'
                 : 'bg-[#161b22] text-gray-400 hover:text-white border border-gray-800'
-            }`}
+              }`}
           >
             {tab.label}
           </button>

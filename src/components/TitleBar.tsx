@@ -1,4 +1,5 @@
 import React from 'react';
+import { VscSearch } from 'react-icons/vsc';
 
 export const TitleBar: React.FC = () => {
   return (
@@ -23,9 +24,12 @@ export const TitleBar: React.FC = () => {
           <span className="p-0.5">←</span>
           <span className="p-0.5">→</span>
         </div>
-        <div className="flex-1 bg-black/40 border border-white/10 rounded px-3 py-1 text-gray-400 flex items-center justify-between text-xs shadow-inner">
-          <span className="truncate">🔍 portfolio samir</span>
-          <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-gray-400 font-mono hidden sm:inline">
+        <div className="flex-1 bg-black/40 border border-white/10 rounded px-3 py-1 text-gray-400 flex items-center justify-between text-xs shadow-inner gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <VscSearch className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+            <span className="truncate">portfolio samir</span>
+          </div>
+          <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-gray-400 font-mono hidden sm:inline shrink-0">
             Ctrl + K
           </span>
         </div>
@@ -48,3 +52,5 @@ export const TitleBar: React.FC = () => {
     </header>
   );
 };
+
+export default TitleBar;

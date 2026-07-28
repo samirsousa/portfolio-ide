@@ -30,7 +30,8 @@ export const FileIcon: React.FC<FileIconProps> = ({ name, isFolder, isOpen, clas
 
   switch (ext) {
     case 'py':
-      return <SiPython className={`${className} text-[#3776ab]`} />;
+      // Ícone clássico do Python (Azul #3776ab)
+      return <SiPython className={`${className} text-[#3776ab] hover:text-[#ffd43b] transition-colors`} />;
     case 'json':
       return <SiJson className={`${className} text-[#fbc02d]`} />;
     case 'md':

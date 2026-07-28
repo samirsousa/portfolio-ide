@@ -22,7 +22,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({
         <span className="hidden sm:inline font-mono">UTF-8</span>
         <span className="font-mono">{activeFileName}</span>
       </div>
-      
+
       <div className="flex items-center gap-3">
         <button
           onClick={onOpenCommandPalette}
@@ -30,8 +30,8 @@ export const StatusBar: React.FC<StatusBarProps> = ({
         >
           ⌨️ Ctrl + K (Paleta)
         </button>
-        
-        <button 
+
+        <button
           onClick={onToggleMode}
           className="hover:bg-[#005999] px-2 py-0.5 rounded transition-colors font-semibold"
         >

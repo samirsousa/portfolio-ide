@@ -79,7 +79,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
         {activeTab === 'sobre' && (
           <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-3">
             <h2 className="text-sm font-semibold text-[#58a6ff] flex items-center gap-2">
-              <span>🐍</span> sobre_mim.py
+              <span>Sobre Mim</span> 
             </h2>
             <div className="text-xs text-gray-300 space-y-2 leading-relaxed">
               <p>

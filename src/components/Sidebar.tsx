@@ -64,11 +64,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={file.id}
                   onClick={() => handleFileClick(file)}
-                  className={`w-full flex items-center gap-2 px-3 py-1.5 rounded text-xs text-left transition-colors ${
-                    isActive
-                      ? 'bg-[#37373d] text-white font-medium'
-                      : 'hover:bg-[#2a2d2e] text-gray-300'
-                  }`}
+                  className={`w-full flex items-center gap-2 px-3 py-1.5 rounded text-xs text-left transition-colors ${isActive
+                    ? 'bg-[#37373d] text-white font-medium'
+                    : 'hover:bg-[#2a2d2e] text-gray-300'
+                    }`}
                 >
                   <FileIcon name={file.name} />
                   <span className="truncate">{file.name}</span>

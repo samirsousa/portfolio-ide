@@ -1,118 +1,116 @@
 export interface FileItem {
-  id: string;
-  name: string;
-  icon: string;
-  language: string;
-  content: string;
-  category: string;
+    id: string;
+    name: string;
+    language: string;
+    content: string;
 }
 
 export const initialFiles: FileItem[] = [
-  {
-    id: 'sobre-mim',
-    name: 'sobre_mim.py',
-    icon: '🐍',
-    language: 'python',
-    category: 'principal',
-    content: `# --- SOBRE MIM ---
-class Desenvolvedor:
+    {
+        id: 'sobre-mim',
+        name: 'sobre_mim.py',
+        language: 'python',
+        content: `# ==============================================================================
+# Samir Firmino Martins de Sousa
+# Estagiário em Análise de Dados & Automação | Sistemas de Informação (UniLaSalle)
+# ==============================================================================
+
+class SamirFirmino:
     def __init__(self):
-        self.nome = "Samir Firmino"
-        self.funcao = "Análise de Dados & Automação"
-        self.faculdade = "Sistemas de Informação (UniLaSalle - RJ)"
-        self.foco = ["SQL", "Python (ETL)", "Power BI", "Dashboards"]
+        self.nome = "Samir Firmino Martins de Sousa"
+        self.cargo = "Estagiário de TI / Análise de Dados"
+        self.local = "Niterói, RJ - Brasil"
+        self.faculdade = "Bacharelado em Sistemas de Informação (7º Período)"
+        
+        self.foco = [
+            "Pipelines ETL (Python / Pandas / NumPy)",
+            "Modelagem e Consultas Avançadas em SQL",
+            "Criação de Dashboards Estratégicos no Power BI",
+            "Automação de Processos & Integração de APIs"
+        ]
 
     def resumo(self):
         return (
-            "Estudante de Sistemas de Informação com foco em análise de dados, "
-            "automações em Python, pipelines de ETL e modelagem de bancos de dados relacionais. "
-            "Experiência prática na criação de dashboards estratégicos e otimização de processos."
+            "Estudante de Sistemas de Informação focado em resolver problemas reais "
+            "através da análise de dados, otimização de consultas e automação de rotinas."
         )
 
-me = Desenvolvedor()
-print(me.resumo())`
-  },
-  {
-    id: 'experiencia',
-    name: 'experiencia_anp.py',
-    icon: '🛢️',
-    language: 'python',
-    category: 'experiencia',
-    content: `# --- EXPERIÊNCIA PROFISSIONAL ---
+me = SamirFirmino()
+print(me.resumo())
+`,
+    },
+    {
+        id: 'experiencia',
+        name: 'experiencia_anp.py',
+        language: 'python',
+        content: `# ==============================================================================
+# Experiência Profissional - Agência Nacional do Petróleo (ANP)
+# Período: Abril 2024 - Abril 2026
+# ==============================================================================
 
-def estagio_anp():
-    empresa = "Agência Nacional do Petróleo (ANP)"
-    cargo = "Estagiário de Análise de Dados e Automação"
-    
-    atividades = [
-        "Desenvolvimento de scripts em Python para automação de rotinas e tratamento de dados",
-        "Execução de pipelines ETL utilizando Pandas e NumPy",
-        "Consultas complexas e atualização de histórico em banco de dados SQL corporativo",
-        "Criação de dashboards interativos no Power BI para suporte a decisões estratégicas"
-    ]
-    
-    return {
-        "empresa": empresa,
-        "cargo": cargo,
-        "impacto": "Otimização de processos manuais e garantia de integridade dos dados."
-    }`
-  },
-  {
-    id: 'tcc-projeto',
-    name: 'projeto_tcc_cripto.py',
-    icon: '📊',
-    language: 'python',
-    category: 'projetos',
-    content: `# --- PROJETO DE TCC / DESTAQUE ---
-
-class CryptoDecisionSupportSystem:
-    """
-    Sistema de Apoio à Decisão para Investimentos em Criptomoedas
-    utilizando Indicadores Técnicos e Score de Risco.
-    """
+class ExperienciaANP:
     def __init__(self):
-        self.stack = ["Python", "Pandas", "APIs Financeiras", "SQL"]
-        self.objetivo = "Analisa ativos do mercado cripto e calcula scores de risco em tempo real."
+        self.empresa = "Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP)"
+        self.funcao = "Estagiário em Análise de Dados"
+        self.tecnologias = ["SQL", "Python", "Power BI", "OracleDB", "DAX", "Power Query"]
 
-    def gerar_relatorio(self):
-        return "Automação de coleta de dados + Análise quantitativa de risco."`
-  },
-  {
-    id: 'habilidades',
-    name: 'habilidades.json',
-    icon: '⚙️',
-    language: 'json',
-    category: 'principal',
-    content: `{
-  "hard_skills": {
-    "linguagens": ["Python", "SQL"],
-    "tratamento_dados": ["Pandas", "NumPy", "ETL Pipelines"],
-    "visualizacao": ["Power BI", "Dashboards"],
-    "bancos_de_dados": ["PostgreSQL", "SQL Server", "MySQL"],
-    "ferramentas": ["Git", "GitHub", "VS Code", "Excel Avançado"]
-  },
-  "soft_skills": [
-    "Pensamento Analítico",
-    "Resolução de Problemas",
-    "Trabalho em Equipe",
-    "Comunicação Técnica"
-  ]
-}`
-  },
-  {
-    id: 'contato',
-    name: 'contato.sh',
-    icon: '🐚',
-    language: 'bash',
-    category: 'principal',
-    content: `#!/bin/bash
-# --- CANAIS DE CONTATO ---
+    def impactos_e_conquistas(self):
+        return {
+            "eficiencia": "Redução de 10% no total de horas de trabalho mensais através de automação.",
+            "banco_de_dados": "Modelagem de histórico e atualizações em tabelas relacionais SQL.",
+            "dashboards": "Construção de relatórios interativos no Power BI para tomada de decisão.",
+            "etl": "Desenvolvimento de rotinas de extração e carga de dados em Python."
+        }
 
-echo "=== VAMOS CONECTAR? ==="
-echo "LinkedIn: https://linkedin.com/in/seu-perfil"
-echo "GitHub:   https://github.com/seu-usuario"
-echo "E-mail:   seu.email@exemplo.com"
-echo "Local:    Niterói, RJ - Brasil"
-`
-  }
+anp = ExperienciaANP()
+`,
+    },
+    {
+        id: 'tcc-projeto',
+        name: 'projeto_tcc_cripto.py',
+        language: 'python',
+        content: `# ==============================================================================
+# Projeto de TCC: Support Decision System - Criptomoedas
+# ==============================================================================
+
+class SAD_Criptomoedas:
+    def __init__(self):
+        self.nome = "Sistema de Apoio à Decisão para Investimento em Cripto"
+        self.status = "Em desenvolvimento"
+        self.stack = ["Python", "ReactJS", "REST APIs", "SQL", "WebSockets"]
+
+    def detalhes(self):
+        return (
+            "Sistema voltado para análise técnica e fundamentalista de criptomoedas, "
+            "coletando dados em tempo real para cálculo automatizado de score de risco."
+        )
+`,
+    },
+    {
+        id: 'habilidades',
+        name: 'habilidades.json',
+        language: 'json',
+        content: `{
+  "desenvolvedor": "Samir Firmino",
+  "linguagens": ["Python", "SQL", "C", "Java", "TypeScript", "JavaScript"],
+  "dados_e_bi": ["Power BI (DAX / Power Query)", "Pandas", "NumPy", "ETL Pipelines"],
+  "bancos_de_dados": ["SQL Server", "OracleDB", "PostgreSQL"],
+  "web_e_ferramentas": ["ReactJS", "Node.js", "Git", "GitHub", "Docker", "n8n"]
+}
+`,
+    },
+    {
+        id: 'contato',
+        name: 'contato.sh',
+        language: 'bash',
+        content: `#!/bin/bash
+
+# Canais de Contato
+echo "E-mail:   samir.sfmss@gmail.com"
+echo "Telefone: +55 21 97928-4282"
+echo "LinkedIn: https://www.linkedin.com/in/samir-firmino-573322265"
+echo "GitHub:   https://github.com/samirsousa"
+echo "Local:    Niterói, RJ"
+`,
+    },
 ];

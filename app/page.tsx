@@ -143,7 +143,7 @@ export default function Home() {
 
           <div className="flex gap-3 w-full sm:w-auto">
             <a
-              href={`${process.env.PUBLIC_URL || ''}/curriculo.pdf`}
+              href="./curriculo.pdf"
               download="Curriculo_Samir_Firmino.pdf"
               className="bg-green-600 px-4 py-2.5 rounded text-sm hover:bg-green-700 transition-colors font-medium flex items-center justify-center gap-2 flex-1 sm:flex-initial"
             >

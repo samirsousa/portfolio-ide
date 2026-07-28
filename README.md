@@ -44,7 +44,7 @@ O **VS Code Portfolio** é uma aplicação web desenvolvida em **Next.js (App Ro
 | :--- | :--- |
 | 🐍 `sobre_mim.py` | Resumo sobre trajetória acadêmica e foco profissional em Dados. |
 | 🛢️ `experiencia_anp.py` | Detalhes do estágio na Agência Nacional do Petróleo (ETL, SQL, Power BI). |
-| 📊 `projeto_tcc_cripto.py` | Sistema de Apoio à Decisão para Criptomoedas (Projeto de TCC). |
+| 📊 `projeto_tcc_cripto.py` | Sistema de Apoio à Decisão para Criptomoedas (Projeto Pessoal). |
 | ⚙️ `habilidades.json` | Mapeamento de Stack Técnica (Python, SQL, Power BI, ReactJS, OracleDB). |
 | 🐚 `contato.sh` | Script Shell com links para LinkedIn, GitHub, E-mail e WhatsApp. |
 

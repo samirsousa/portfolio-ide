@@ -66,24 +66,131 @@ anp = ExperienciaANP()
 `,
     },
     {
-        id: 'tcc-projeto',
-        name: 'projeto_tcc_cripto.py',
+        id: 'krypton-ai',
+        name: 'krypton_ai.py',
         language: 'python',
         content: `# ==============================================================================
-# Projeto de TCC: Support Decision System - Criptomoedas
+# Krypton AI - Decision Support System for Cryptocurrency Investments
+# TCC - Bacharelado em Sistemas de Informação
 # ==============================================================================
 
-class SAD_Criptomoedas:
-    def __init__(self):
-        self.nome = "Sistema de Apoio à Decisão para Investimento em Cripto"
+class KryptonAI:
+    def __init__(self, asset_symbol: str = "BTC/USD"):
+        self.symbol = asset_symbol
         self.status = "Em desenvolvimento"
         self.stack = ["Python", "ReactJS", "REST APIs", "SQL", "WebSockets"]
+        self.risk_score = 0.0
 
-    def detalhes(self):
-        return (
-            "Sistema voltado para análise técnica e fundamentalista de criptomoedas, "
-            "coletando dados em tempo real para cálculo automatizado de score de risco."
-        )
+    def calculate_risk_index(self, volatility: float, market_sentiment: float) -> float:
+        """
+        Calcula o score de risco do ativo integrando volatilidade e sentimento de mercado em tempo real.
+        """
+        self.risk_score = (volatility * 0.6) + ((1 - market_sentiment) * 0.4)
+        return round(self.risk_score, 2)
+
+krypton = KryptonAI("BTC/USD")
+score = krypton.calculate_risk_index(volatility=0.45, market_sentiment=0.78)
+print(f"krypton_ai status: ACTIVE | Risk Score [{krypton.symbol}]: {score}")
+`,
+    },
+    {
+        id: 'petflow',
+        name: 'petflow.tsx',
+        language: 'typescript',
+        content: `import React from 'react';
+
+// ==============================================================================
+// Petflow - Sistema de Gestão Pet Shop (Full Stack)
+// Stack: ReactJS + Node.js/Express + PostgreSQL (Render API)
+// ==============================================================================
+
+export const PetflowApp: React.FC = () => {
+  const systemInfo = {
+    frontend: "ReactJS + TypeScript + Tailwind CSS",
+    backend: "Node.js com Express",
+    database: "PostgreSQL Relacional",
+    hosting: "API em Produção no Render"
+  };
+
+  return (
+    <div className="petflow-container">
+      <h1> Petflow System</h1>
+      <p>Automação e gestão operacional para pet shops.</p>
+      <ul>
+        <li>Frontend: {systemInfo.frontend}</li>
+        <li>Backend: {systemInfo.backend}</li>
+        <li>Database: {systemInfo.database}</li>
+        <li>Status: {systemInfo.hosting}</li>
+      </ul>
+    </div>
+  );
+};
+`,
+    },
+    {
+        id: 'deal-closer-ai',
+        name: 'deal_closer_ai.py',
+        language: 'python',
+        content: `# ==============================================================================
+# Deal Closer AI - Agente Inteligente Orientado a Vendas
+# ==============================================================================
+
+class DealCloserAI:
+    def __init__(self):
+        self.modelo = "Agente Comercial Orientado a Tomada de Decisão"
+        self.foco = "Apoio ao Fechamento Comercial e Qualificação de Leads"
+
+    def analyze_lead_intent(self, interaction_history: list) -> str:
+        """
+        Analisa o histórico do lead e categoriza a intenção de compra.
+        """
+        if "orçamento" in interaction_history and "urgente" in interaction_history:
+            return "HIGH_PRIORITY_CLOSING"
+        return "NURTURING"
+
+agent = DealCloserAI()
+status = agent.analyze_lead_intent(["solicitou demonstração", "orçamento", "urgente"])
+print(f"Deal Status: {status}")
+`,
+    },
+    {
+        id: 'devchef',
+        name: 'devchef.tsx',
+        language: 'typescript',
+        content: `import React from 'react';
+
+// ==============================================================================
+// DevChef - Gestão e Busca de Receitas Otimizadas para Devs (Full Stack)
+// ==============================================================================
+
+export const DevChefApp: React.FC = () => {
+  return (
+    <div className="devchef-app">
+      <h1> DevChef</h1>
+      <p>Aplicação web para busca e gestão de receitas personalizadas.</p>
+    </div>
+  );
+};
+`,
+    },
+    {
+        id: 'supermercado',
+        name: 'supermercado.c',
+        language: 'c',
+        content: `/*
+ * ==============================================================================
+ * Gerenciador de Supermercado
+ * Controle de estoque e simulação de vendas operacionais
+ * ==============================================================================
+ */
+
+#include <stdio.h>
+
+int main() {
+    printf(" Gerenciador de Supermercado v1.0\\n");
+    printf("Sistema de controle de estoque e caixa inicializado.\\n");
+    return 0;
+}
 `,
     },
     {
@@ -95,7 +202,7 @@ class SAD_Criptomoedas:
   "linguagens": ["Python", "SQL", "C", "Java", "TypeScript", "JavaScript"],
   "dados_e_bi": ["Power BI (DAX / Power Query)", "Pandas", "NumPy", "ETL Pipelines"],
   "bancos_de_dados": ["SQL Server", "OracleDB", "PostgreSQL"],
-  "web_e_ferramentas": ["ReactJS", "Node.js", "Git", "GitHub", "Docker", "n8n"]
+  "web_e_ferramentas": ["ReactJS", "Node.js", "Express", "Git", "GitHub", "Docker", "n8n"]
 }
 `,
     },

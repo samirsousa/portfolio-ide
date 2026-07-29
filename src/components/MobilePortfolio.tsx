@@ -163,24 +163,40 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
           </div>
         )}
 
-        {activeTab === 'contato' && (
-          <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-3">
-            <h2 className="text-sm font-semibold text-[#58a6ff]">Canais de Contato</h2>
-            <div className="space-y-2 text-xs">
-              <p className="text-gray-300"><strong className="text-white">E-mail:</strong> samir.sfmss@gmail.com</p>
-              <p className="text-gray-300"><strong className="text-white">Telefone:</strong> +55 21 97928-4282</p>
-              <p className="text-gray-300"><strong className="text-white">Localização:</strong> Niterói, RJ</p>
-            </div>
-            <a
-              href="https://wa.me/5521979284282"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-3 w-full bg-green-600 hover:bg-green-700 text-white font-medium text-xs py-2 rounded-lg text-center block transition-colors"
-            >
-              💬 Chamar no WhatsApp
-            </a>
-          </div>
-        )}
+       {activeTab === 'contato' && (
+  <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-3">
+    <h2 className="text-sm font-semibold text-[#58a6ff]">Canais de Contato</h2>
+    <div className="space-y-2 text-xs">
+      <p className="text-gray-300"><strong className="text-white">E-mail:</strong> samir.sfmss@gmail.com</p>
+      <p className="text-gray-300"><strong className="text-white">Telefone:</strong> +55 21 97928-4282</p>
+      <p className="text-gray-300"><strong className="text-white">Localização:</strong> Niterói, RJ</p>
+    </div>
+
+   <div className="pt-1 flex flex-col gap-2">
+  {/* Botão WhatsApp */}
+  <a
+    href="https://wa.me/5521979284282"
+    target="_blank"
+    rel="noreferrer"
+    className="w-full bg-green-600 hover:bg-green-700 text-white font-medium text-xs py-2 rounded-lg text-center block transition-colors"
+  >
+    💬 Chamar no WhatsApp
+  </a>
+
+  {/* Botão E-mail com Gradiente Gmail */}
+  <a
+    href="mailto:samir.sfmss@gmail.com?subject=Contato%20via%20Portfólio"
+    target="_blank"
+    rel="noreferrer"
+    style={{ background: 'linear-gradient(90deg, #ea4335, #fbbc05, #34a853, #4285f4)' }}
+    className="w-full text-white font-semibold text-xs py-2 rounded-lg text-center block transition-all active:scale-[0.98] shadow-md border border-white/10"
+  >
+    ✉️ Enviar E-mail
+  </a>
+</div>
+  </div>
+)}
+
       </main>
     </div>
   );

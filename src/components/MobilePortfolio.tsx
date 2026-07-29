@@ -24,10 +24,12 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
       {/* Perfil Header Minimalista */}
       <header className="flex flex-col gap-3 border-b border-gray-800 pb-5">
         <div className="flex items-center gap-4">
-          <div style={{ background: 'linear-gradient(to top right, #007acc, #9333ea)' }}
-            className="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold text-white shadow-md">
-            SF
-          </div>
+          {/* Foto de Perfil */}
+          <img
+            src="./perfil.jfif"
+            alt="Foto de Samir Firmino"
+            className="w-16 h-16 rounded-full object-cover border-2 border-[#007acc] shadow-md shrink-0"
+          />
           <div>
             <h1 className="text-xl font-bold text-white tracking-tight">Samir Firmino</h1>
             <p className="text-xs text-[#58a6ff] font-medium">@samirsousa</p>
@@ -65,8 +67,8 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
             className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-colors ${activeTab === tab.id
-                ? 'bg-[#1f6feb] text-white font-medium'
-                : 'bg-[#161b22] text-gray-400 hover:text-white border border-gray-800'
+              ? 'bg-[#1f6feb] text-white font-medium'
+              : 'bg-[#161b22] text-gray-400 hover:text-white border border-gray-800'
               }`}
           >
             {tab.label}
@@ -79,7 +81,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
         {activeTab === 'sobre' && (
           <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-3">
             <h2 className="text-sm font-semibold text-[#58a6ff] flex items-center gap-2">
-              <span>Sobre Mim</span> 
+              <span>Sobre Mim</span>
             </h2>
             <div className="text-xs text-gray-300 space-y-2 leading-relaxed">
               <p>

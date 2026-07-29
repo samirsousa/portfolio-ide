@@ -135,10 +135,10 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                   <span>🐾</span> Petflow
                 </h3>
-                <span className="text-[10px] text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded bg-purple-500/10">Python / ETL</span>
+                <span className="text-[10px] text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded bg-cyan-500/10">Full Stack</span>
               </div>
               <p className="text-xs text-gray-300">
-                Sistema de automação e gestão para estabelecimentos pet, focado em otimização de rotinas operacionais e fluxo de dados.
+                Sistema de gestão pet shop desenvolvido com ReactJS, Node.js/Express e PostgreSQL. API hospedada em produção no Render.
               </p>
             </div>
 

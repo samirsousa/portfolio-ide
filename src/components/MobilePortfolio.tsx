@@ -116,6 +116,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
         {activeTab === 'projetos' && (
           <div className="space-y-3">
+            {/* SAD Criptomoedas */}
             <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-2">
               <div className="flex justify-between items-center">
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
@@ -128,6 +129,46 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
               </p>
             </div>
 
+            {/* Petflow */}
+            <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-2">
+              <div className="flex justify-between items-center">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <span>🐾</span> Petflow
+                </h3>
+                <span className="text-[10px] text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded bg-purple-500/10">Python / ETL</span>
+              </div>
+              <p className="text-xs text-gray-300">
+                Sistema de automação e gestão para estabelecimentos pet, focado em otimização de rotinas operacionais e fluxo de dados.
+              </p>
+            </div>
+
+            {/* Deal Closer AI */}
+            <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-2">
+              <div className="flex justify-between items-center">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <span>🤝</span> Deal Closer AI
+                </h3>
+                <span className="text-[10px] text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded bg-blue-500/10">IA / Automação</span>
+              </div>
+              <p className="text-xs text-gray-300">
+                Agente inteligente orientado a vendas para apoio à tomada de decisão e fechamento comercial com inteligência artificial.
+              </p>
+            </div>
+
+            {/* DevChef */}
+            <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-2">
+              <div className="flex justify-between items-center">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <span>👨‍🍳</span> DevChef
+                </h3>
+                <span className="text-[10px] text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded bg-emerald-500/10">Full Stack</span>
+              </div>
+              <p className="text-xs text-gray-300">
+                Aplicação web interativa desenvolvida para facilitar a busca e gestão de receitas personalizadas para desenvolvedores.
+              </p>
+            </div>
+
+            {/* Gerenciador de Supermercado */}
             <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-2">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <span>🛒</span> Gerenciador de Supermercado
@@ -163,40 +204,39 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
           </div>
         )}
 
-       {activeTab === 'contato' && (
-  <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-3">
-    <h2 className="text-sm font-semibold text-[#58a6ff]">Canais de Contato</h2>
-    <div className="space-y-2 text-xs">
-      <p className="text-gray-300"><strong className="text-white">E-mail:</strong> samir.sfmss@gmail.com</p>
-      <p className="text-gray-300"><strong className="text-white">Telefone:</strong> +55 21 97928-4282</p>
-      <p className="text-gray-300"><strong className="text-white">Localização:</strong> Niterói, RJ</p>
-    </div>
+        {/* Conteúdo da Aba Contato */}
+        {activeTab === 'contato' && (
+          <div className="bg-[#161b22] border border-gray-800 rounded-xl p-4 space-y-3">
+            <h2 className="text-sm font-semibold text-[#58a6ff]">Canais de Contato</h2>
+            <div className="space-y-2 text-xs">
+              <p className="text-gray-300"><strong className="text-white">E-mail:</strong> samir.sfmss@gmail.com</p>
+              <p className="text-gray-300"><strong className="text-white">Telefone:</strong> +55 21 97928-4282</p>
+              <p className="text-gray-300"><strong className="text-white">Localização:</strong> Niterói, RJ</p>
+            </div>
 
-   <div className="pt-1 flex flex-col gap-2">
-  {/* Botão WhatsApp */}
-  <a
-    href="https://wa.me/5521979284282"
-    target="_blank"
-    rel="noreferrer"
-    className="w-full bg-green-600 hover:bg-green-700 text-white font-medium text-xs py-2 rounded-lg text-center block transition-colors"
-  >
-    💬 Chamar no WhatsApp
-  </a>
+            <div className="pt-1 flex flex-col gap-2">
+              {/* Botão WhatsApp */}
+              <a
+                href="https://wa.me/5521979284282"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-medium text-xs py-2 rounded-lg text-center block transition-colors"
+              >
+                💬 Chamar no WhatsApp
+              </a>
 
-  {/* Botão E-mail com Gradiente Gmail */}
-  <a
-    href="mailto:samir.sfmss@gmail.com?subject=Contato%20via%20Portfólio"
-    target="_blank"
-    rel="noreferrer"
-    style={{ background: 'linear-gradient(90deg, #ea4335, #fbbc05, #34a853, #4285f4)' }}
-    className="w-full text-white font-semibold text-xs py-2 rounded-lg text-center block transition-all active:scale-[0.98] shadow-md border border-white/10"
-  >
-    ✉️ Enviar E-mail
-  </a>
-</div>
-  </div>
-)}
-
+              {/* Botão E-mail Azul */}
+              <a
+                href="mailto:samir.sfmss@gmail.com?subject=Contato%20via%20Portfólio"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full bg-[#007acc] hover:bg-[#005999] text-white font-medium text-xs py-2 rounded-lg text-center block transition-colors"
+              >
+                ✉️ Enviar E-mail
+              </a>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

@@ -134,7 +134,7 @@ export const Editor: React.FC<EditorProps> = ({
         });
     };
 
-    // 1. TELA DE INTRODUÇÃO ANIMADA (Branco + Azul)
+    // 1. TELA DE INTRODUÇÃO ANIMADA
     if (!isIntroDone) {
         const lines = introText.split('\n');
         const firstLine = lines[0] || '';
@@ -143,13 +143,11 @@ export const Editor: React.FC<EditorProps> = ({
         return (
             <div className={`flex-1 flex flex-col items-center justify-center ${currentStyle.bg} font-mono p-6 transition-all select-none`}>
                 <div className="text-left space-y-1 max-w-md w-full text-base sm:text-lg font-bold leading-relaxed">
-                    {/* Linha 1 em Branco */}
                     <div className="text-white min-h-7">
                         {firstLine}
                         {lines.length === 1 && <span className="animate-pulse text-white">_</span>}
                     </div>
 
-                    {/* Linha 2 em Azul */}
                     {lines.length > 1 && (
                         <div className="text-[#007acc] min-h-7">
                             {secondLine}
@@ -163,16 +161,17 @@ export const Editor: React.FC<EditorProps> = ({
 
     // 2. EXIBIÇÃO COMPLETA DA IDE APÓS A INTRO
     return (
-        <div className={`flex-1 flex flex-col ${currentStyle.bg} overflow-hidden transition-colors duration-200`}>
+        <div className={`flex-1 flex flex-col h-full min-h-0 ${currentStyle.bg} overflow-hidden transition-colors duration-200`}>
             {/* Abas Superiores (Tabs) */}
-            <div className="flex bg-[#252526] border-b border-white/10 overflow-x-auto scrollbar-none select-none">
+            <div className="flex bg-[#252526] border-b border-white/10 overflow-x-auto scrollbar-none select-none shrink-0">
                 {openFiles.map((file) => {
                     const isActive = file.id === activeFile.id;
                     return (
                         <div
                             key={file.id}
                             onClick={() => onSelectFile(file)}
-                            className={`flex items-center gap-2 px-3 py-2 text-xs border-r border-white/5 cursor-pointer style={{ minWidth: '120px', maxWidth: '200px' }} group transition-colors ${isActive
+                            style={{ minWidth: '120px', maxWidth: '200px' }}
+                            className={`flex items-center gap-2 px-3 py-2 text-xs border-r border-white/5 cursor-pointer group transition-colors ${isActive
                                 ? `${currentStyle.bg} text-white border-t-2 border-t-[#007acc]`
                                 : 'text-gray-400 hover:bg-[#2d2d2d] hover:text-gray-200'
                                 }`}
@@ -190,92 +189,88 @@ export const Editor: React.FC<EditorProps> = ({
                 })}
             </div>
 
-            {/* Hero Banner Estilo Yash Dhingra Exact Copy */}
-            <div className={`${currentStyle.bannerBg} border-b border-white/10 p-5 sm:p-7 flex flex-col gap-4 select-none font-mono`}>
-                {/* Comentário de código em cinza */}
-                <p className="text-xs sm:text-sm text-gray-500 font-mono">
-          // Fala aí, obrigado por abrir meu portfólio!
-                </p>
+            {/* Container Rolável Único (Hero + Código) */}
+            <div className={`flex-1 overflow-y-auto p-4 sm:p-6 font-mono text-sm ${currentStyle.text}`}>
+                {/* Hero Banner Compacto */}
+                <div className={`${currentStyle.bannerBg} border border-white/10 rounded-lg p-4 sm:p-5 flex flex-col gap-3 select-none mb-4`}>
+                    <p className="text-xs text-gray-500 font-mono">
+                        // Fala aí, obrigado por abrir meu portfólio!
+                    </p>
 
-                {/* Nome Grande e Botões */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                        Samir Firmino <span className="text-[#007acc] font-normal font-sans">;</span>
-                    </h1>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                            Samir Firmino <span className="text-[#007acc] font-normal font-sans">;</span>
+                        </h1>
 
-                    <div className="flex flex-wrap gap-2 text-xs">
-                        {onToggleMode && (
+                        <div className="flex flex-wrap gap-2 text-xs">
+                            {onToggleMode && (
+                                <button
+                                    onClick={onToggleMode}
+                                    className="bg-[#007acc] hover:bg-[#005999] text-white px-3 py-1.5 rounded font-medium transition-all active:scale-95 flex items-center gap-1.5"
+                                >
+                                    <span>📄</span> Ver Currículo RH
+                                </button>
+                            )}
                             <button
-                                onClick={onToggleMode}
-                                className="bg-[#007acc] hover:bg-[#005999] text-white px-3 py-1.5 rounded font-medium transition-all active:scale-95 flex items-center gap-1.5"
+                                onClick={() => onRunScript(activeFile)}
+                                className="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded font-medium transition-all active:scale-95 flex items-center gap-1.5"
                             >
-                                <span>📄</span> Ver Currículo RH
+                                <span>▶</span> Executar ({activeFile.name})
                             </button>
-                        )}
-                        <button
-                            onClick={() => onRunScript(activeFile)}
-                            className="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded font-medium transition-all active:scale-95 flex items-center gap-1.5"
-                        >
-                            <span>▶</span> Executar ({activeFile.name})
-                        </button>
+                        </div>
                     </div>
-                </div>
 
-                {/* Frase do Cargo em AZUL animada */}
-                <div className="text-sm sm:text-base text-[#007acc] font-semibold style={{ minHeight: '24px' }} flex items-center">
-                    <span>{typedTitle}</span>
-                    <span className="animate-pulse text-[#007acc] ml-0.5">_</span>
-                </div>
-
-                {/* Parágrafos do Resumo Profissional */}
-                <div className="space-y-2 text-xs sm:text-sm text-gray-300 leading-relaxed font-sans max-w-4xl pt-1">
-                    <p>
-                        Estudante de Sistemas de Informação (UniLaSalle - RJ) com foco em Análise de Dados, automação de rotinas e desenvolvimento de sistemas.
-                    </p>
-                    <p className="text-gray-400">
-                        <strong className="text-white font-mono">Hoje:</strong> atuando como estagiário na Agência Nacional do Petróleo (ANP), construindo pipelines ETL em Python, otimizando bancos SQL e desenvolvendo dashboards estratégicos em Power BI.
-                    </p>
-                </div>
-
-                {/* Temas */}
-                {onSelectTheme && (
-                    <div className="flex items-center gap-2 text-[11px] text-gray-400 pt-3 border-t border-white/5 font-mono mt-1">
-                        <span>One-click Themes:</span>
-                        <button
-                            onClick={() => onSelectTheme('onedark')}
-                            className={`px-2 py-0.5 rounded border transition-colors ${theme === 'onedark' ? 'bg-[#007acc] text-white border-[#007acc]' : 'border-white/10 hover:border-white/30'
-                                }`}
-                        >
-                            One Dark (VS Code)
-                        </button>
-                        <button
-                            onClick={() => onSelectTheme('dracula')}
-                            className={`px-2 py-0.5 rounded border transition-colors ${theme === 'dracula' ? 'bg-[#bd93f9] text-black font-semibold border-[#bd93f9]' : 'border-white/10 hover:border-white/30'
-                                }`}
-                        >
-                            Dracula
-                        </button>
-                        <button
-                            onClick={() => onSelectTheme('monokai')}
-                            className={`px-2 py-0.5 rounded border transition-colors ${theme === 'monokai' ? 'bg-[#e6db74] text-black font-semibold border-[#e6db74]' : 'border-white/10 hover:border-white/30'
-                                }`}
-                        >
-                            Monokai
-                        </button>
+                    <div className="text-xs sm:text-sm text-[#007acc] font-semibold flex items-center">
+                        <span>{typedTitle}</span>
+                        <span className="animate-pulse text-[#007acc] ml-0.5">_</span>
                     </div>
-                )}
-            </div>
 
-            {/* Editor de Código Principal */}
-            <div className={`flex-1 overflow-auto p-4 font-mono text-sm leading-relaxed flex ${currentStyle.text}`}>
-                <div className="flex flex-col text-right pr-4 text-gray-600 select-none border-r border-white/5 mr-4 text-xs space-y-1">
-                    {activeFile.content.split('\n').map((_, index) => (
-                        <span key={index}>{index + 1}</span>
-                    ))}
+                    <div className="space-y-1 text-xs text-gray-300 leading-relaxed font-sans max-w-4xl">
+                        <p>
+                            Estudante de Sistemas de Informação (UniLaSalle - RJ) com foco em Análise de Dados, automação de rotinas e desenvolvimento de sistemas.
+                        </p>
+                        <p className="text-gray-400">
+                            <strong className="text-white font-mono">Hoje:</strong> atuando como estagiário na Agência Nacional do Petróleo (ANP), construindo pipelines ETL em Python, otimizando bancos SQL e desenvolvendo dashboards estratégicos em Power BI.
+                        </p>
+                    </div>
+
+                    {/* Temas */}
+                    {onSelectTheme && (
+                        <div className="flex items-center gap-2 text-[11px] text-gray-400 pt-2 border-t border-white/5 font-mono mt-1">
+                            <span>Themes:</span>
+                            <button
+                                onClick={() => onSelectTheme('onedark')}
+                                className={`px-2 py-0.5 rounded border transition-colors ${theme === 'onedark' ? 'bg-[#007acc] text-white border-[#007acc]' : 'border-white/10 hover:border-white/30'}`}
+                            >
+                                One Dark
+                            </button>
+                            <button
+                                onClick={() => onSelectTheme('dracula')}
+                                className={`px-2 py-0.5 rounded border transition-colors ${theme === 'dracula' ? 'bg-[#bd93f9] text-black font-semibold border-[#bd93f9]' : 'border-white/10 hover:border-white/30'}`}
+                            >
+                                Dracula
+                            </button>
+                            <button
+                                onClick={() => onSelectTheme('monokai')}
+                                className={`px-2 py-0.5 rounded border transition-colors ${theme === 'monokai' ? 'bg-[#e6db74] text-black font-semibold border-[#e6db74]' : 'border-white/10 hover:border-white/30'}`}
+                            >
+                                Monokai
+                            </button>
+                        </div>
+                    )}
                 </div>
 
-                <div className="font-mono text-xs sm:text-sm flex-1 space-y-0.5">
-                    {renderHighlightedCode(activeFile.content)}
+                {/* Editor de Código Principal */}
+                <div className="flex leading-relaxed pt-2">
+                    <div className="flex flex-col text-right pr-4 text-gray-600 select-none border-r border-white/5 mr-4 text-xs space-y-1 shrink-0">
+                        {activeFile.content.split('\n').map((_, index) => (
+                            <span key={index}>{index + 1}</span>
+                        ))}
+                    </div>
+
+                    <div className="font-mono text-xs sm:text-sm flex-1 space-y-0.5 overflow-x-auto">
+                        {renderHighlightedCode(activeFile.content)}
+                    </div>
                 </div>
             </div>
         </div>

@@ -44,7 +44,7 @@ export const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, outputLog =
         );
         break;
       case 'skills':
-        newHistory.push('Linguagens: Python, SQL', 'Ferramentas: Power BI, Git, Pandas, NumPy');
+        newHistory.push('Linguagens: Python, SQL, C, Java, TypeScript', 'Ferramentas: Power BI, Git, Pandas, NumPy, ReactJS, PostgreSQL');
         break;
       case 'contact':
         newHistory.push('LinkedIn: linkedin.com/in/samir-firmino-573322265', 'E-mail: samir.sfmss@gmail.com');
@@ -67,24 +67,24 @@ export const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, outputLog =
   };
 
   return (
-    <div className="h-48 bg-black/40 border-t border-white/10 flex flex-col font-mono text-xs text-[#cccccc]">
+    <div className="h-36 shrink-0 bg-[#181818] border-t border-white/10 flex flex-col font-mono text-xs text-[#cccccc]">
       {/* Header do Terminal */}
-      <div className="flex justify-between items-center bg-black/30 px-4 py-1 text-[#858585] border-b border-white/10 select-none">
+      <div className="flex justify-between items-center bg-[#252526] px-4 py-1 text-[#858585] border-b border-white/10 select-none shrink-0">
         <div className="flex gap-4">
-          <span className="text-white font-semibold border-b border-[#007acc]">TERMINAL</span>
+          <span className="text-white font-semibold border-b border-[#007acc] pb-0.5">TERMINAL</span>
           <span>OUTPUT</span>
           <span>DEBUG CONSOLE</span>
         </div>
-        <button onClick={onClose} className="hover:text-white">✕</button>
+        <button onClick={onClose} className="hover:text-white transition-colors">✕</button>
       </div>
 
       {/* Conteúdo do Terminal */}
       <div className="flex-1 p-3 overflow-y-auto space-y-1">
         {history.map((line, idx) => (
-          <div key={idx} className="whitespace-pre-wrap">{line}</div>
+          <div key={idx} className="whitespace-pre-wrap leading-relaxed">{line}</div>
         ))}
         <form onSubmit={handleCommand} className="flex items-center gap-2 pt-1">
-          <span className="text-green-500 font-bold">samir@portfolio:~$</span>
+          <span className="text-green-500 font-bold shrink-0">samir@portfolio:~$</span>
           <input
             type="text"
             value={input}

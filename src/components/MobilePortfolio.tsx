@@ -5,282 +5,263 @@ interface MobilePortfolioProps {
 }
 
 export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde }) => {
-  const [activeTab, setActiveTab] = useState<'inicio' | 'projetos' | 'experiencia' | 'contato'>('inicio');
+  const [activeTab, setActiveTab] = useState<'inicio' | 'buscar' | 'biblioteca'>('inicio');
+  const [activeFilter, setActiveFilter] = useState<'tudo' | 'projetos' | 'experiencia'>('tudo');
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col justify-between pb-24">
-      {/* Top Bar com botão de troca para IDE */}
-      <div
-        style={{ background: 'linear-gradient(180deg, #282828 0%, #121212 100%)' }}
-        className="px-4 pt-4 flex justify-between items-center pb-4"
-      >
-        <span className="text-xs font-bold tracking-wider text-gray-400 uppercase">Portfólio / Spotify Edition</span>
-        {onSwitchToIde && (
+    <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col justify-between pb-28 select-none">
+      
+      {/* Header Nativo Spotify: Perfil + Filtros do Topo */}
+      <header className="px-4 pt-4 pb-2 space-y-3 sticky top-0 bg-[#121212]/95 backdrop-blur-md z-30">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <img
+              src="./perfil.jfif"
+              alt="Perfil"
+              className="w-8 h-8 rounded-full object-cover border border-white/20"
+            />
+            <span className="text-xl font-bold tracking-tight text-white">Início</span>
+          </div>
+
+          {onSwitchToIde && (
+            <button
+              onClick={onSwitchToIde}
+              className="flex items-center gap-1.5 text-[11px] bg-[#282828] text-gray-200 hover:text-white border border-gray-700/60 px-3 py-1.5 rounded-full transition-all active:scale-95 shadow-md"
+            >
+              <span>💻</span> Modo IDE
+            </button>
+          )}
+        </div>
+
+        {/* Pílulas de Filtro */}
+        <div className="flex gap-2 overflow-x-auto scrollbar-none text-xs font-medium">
           <button
-            onClick={onSwitchToIde}
-            className="flex items-center gap-1.5 text-[11px] bg-[#282828] text-white hover:bg-[#3e3e3e] border border-gray-700 px-3 py-1.5 rounded-full transition-all active:scale-95 shadow-md"
+            onClick={() => setActiveFilter('tudo')}
+            className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-all ${
+              activeFilter === 'tudo' ? 'bg-[#1DB954] text-black font-bold' : 'bg-[#282828] text-white'
+            }`}
           >
-            <span>💻</span> Modo IDE
+            Tudo
           </button>
-        )}
-      </div>
+          <button
+            onClick={() => setActiveFilter('projetos')}
+            className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-all ${
+              activeFilter === 'projetos' ? 'bg-[#1DB954] text-black font-bold' : 'bg-[#282828] text-white'
+            }`}
+          >
+            Projetos
+          </button>
+          <button
+            onClick={() => setActiveFilter('experiencia')}
+            className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-all ${
+              activeFilter === 'experiencia' ? 'bg-[#1DB954] text-black font-bold' : 'bg-[#282828] text-white'
+            }`}
+          >
+            Experiência
+          </button>
+        </div>
+      </header>
 
-      {/* Conteúdo Principal */}
-      <main className="px-4 flex-1 space-y-6">
+      {/* Feed Estilo App Spotify */}
+      <main className="px-4 flex-1 space-y-6 pt-1">
         
-        {/* Header do Artista / Desenvolvedor */}
-        <div className="flex items-center gap-4 pt-2">
-          <img
-            src="./perfil.jfif"
-            alt="Foto de Samir Firmino"
-            className="w-20 h-20 rounded-full object-cover shadow-2xl border-2 border-[#1DB954]"
-          />
-          <div className="space-y-1">
-            <span className="text-[10px] text-[#1DB954] font-bold uppercase tracking-widest flex items-center gap-1">
-              ✓ Desenvolvedor Verificado
-            </span>
-            <h1 className="text-2xl font-extrabold tracking-tight">Samir Firmino</h1>
-            <p className="text-xs text-gray-400">Análise de Dados & Automação | UniLaSalle</p>
-          </div>
-        </div>
-
-        {/* Botão de Seguir / Contato Rápido */}
-        <div className="flex items-center gap-3">
-          <a
-            href="https://wa.me/5521979284282"
-            target="_blank"
-            rel="noreferrer"
-            className="bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold text-xs px-6 py-2.5 rounded-full transition-all active:scale-95 shadow-lg"
-          >
-            Seguir no WhatsApp
-          </a>
-          <a
-            href="https://github.com/samirsousa"
-            target="_blank"
-            rel="noreferrer"
-            className="border border-gray-600 hover:border-white text-white font-bold text-xs px-4 py-2.5 rounded-full transition-all"
-          >
-            GitHub
-          </a>
-        </div>
-
-        {/* NAVEGAÇÃO DE CONTEÚDO */}
-        {activeTab === 'inicio' && (
-          <div className="space-y-6 pt-2">
-            {/* Populares / Destaques */}
-            <div>
-              <h2 className="text-base font-bold mb-3">Mais Tocadas (Destaques)</h2>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between p-2 rounded-md hover:bg-[#282828] transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-400 text-sm font-bold w-4">1</span>
-                    <div className="w-10 h-10 bg-[#282828] rounded flex items-center justify-center text-lg">📊</div>
-                    <div>
-                      <p className="text-xs font-semibold text-white">Krypton AI (TCC)</p>
-                      <p className="text-[10px] text-gray-400">Python • Decision Support System</p>
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-[#1DB954] bg-[#1DB954]/10 border border-[#1DB954]/30 px-2 py-0.5 rounded-full">Em Dev</span>
+        {/* Recentes em Grade de 2 Colunas */}
+        {(activeFilter === 'tudo' || activeFilter === 'projetos') && (
+          <div>
+            <h2 className="text-lg font-bold text-white mb-2.5">Recentes</h2>
+            <div className="grid grid-cols-2 gap-2">
+              
+              <div className="bg-[#282828]/80 hover:bg-[#383838] transition-colors rounded-md p-2 flex items-center gap-2.5 overflow-hidden">
+                <div className="w-10 h-10 bg-cyan-600/30 rounded flex items-center justify-center text-base shrink-0 border border-cyan-500/30">
+                  🐾
                 </div>
-
-                <div className="flex items-center justify-between p-2 rounded-md hover:bg-[#282828] transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-400 text-sm font-bold w-4">2</span>
-                    <div className="w-10 h-10 bg-[#282828] rounded flex items-center justify-center text-lg">🐾</div>
-                    <div>
-                      <p className="text-xs font-semibold text-white">Petflow</p>
-                      <p className="text-[10px] text-gray-400">ReactJS • Node.js • PostgreSQL</p>
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-cyan-400 bg-cyan-400/10 border border-cyan-400/30 px-2 py-0.5 rounded-full">Full Stack</span>
-                </div>
-
-                <div className="flex items-center justify-between p-2 rounded-md hover:bg-[#282828] transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-400 text-sm font-bold w-4">3</span>
-                    <div className="w-10 h-10 bg-[#282828] rounded flex items-center justify-center text-lg">🤝</div>
-                    <div>
-                      <p className="text-xs font-semibold text-white">Deal Closer AI</p>
-                      <p className="text-[10px] text-gray-400">Agente de IA • Vendas</p>
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-blue-400 bg-blue-400/10 border border-blue-400/30 px-2 py-0.5 rounded-full">IA</span>
+                <div className="truncate">
+                  <p className="text-xs font-bold text-white truncate">Petflow</p>
+                  <p className="text-[10px] text-gray-400 truncate">Full Stack System</p>
                 </div>
               </div>
-            </div>
 
-            {/* Playlists / Tech Stack */}
-            <div>
-              <h2 className="text-base font-bold mb-3">Sua Biblioteca Tech</h2>
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="bg-[#181818] p-3 rounded-lg hover:bg-[#282828] transition-colors border border-gray-800">
-                  <span className="text-[#1DB954] text-lg block mb-1">🐍</span>
-                  <p className="font-bold text-white">Python & Dados</p>
-                  <p className="text-[10px] text-gray-400 mt-1">Pandas, NumPy, ETL Pipelines</p>
+              <div className="bg-[#282828]/80 hover:bg-[#383838] transition-colors rounded-md p-2 flex items-center gap-2.5 overflow-hidden">
+                <div className="w-10 h-10 bg-purple-600/30 rounded flex items-center justify-center text-base shrink-0 border border-purple-500/30">
+                  📊
                 </div>
-                <div className="bg-[#181818] p-3 rounded-lg hover:bg-[#282828] transition-colors border border-gray-800">
-                  <span className="text-[#1DB954] text-lg block mb-1">🗄️</span>
-                  <p className="font-bold text-white">SQL & BI</p>
-                  <p className="text-[10px] text-gray-400 mt-1">Power BI, OracleDB, Postgres</p>
+                <div className="truncate">
+                  <p className="text-xs font-bold text-white truncate">Krypton AI</p>
+                  <p className="text-[10px] text-gray-400 truncate">TCC Cripto • Python</p>
                 </div>
               </div>
+
+              <div className="bg-[#282828]/80 hover:bg-[#383838] transition-colors rounded-md p-2 flex items-center gap-2.5 overflow-hidden">
+                <div className="w-10 h-10 bg-blue-600/30 rounded flex items-center justify-center text-base shrink-0 border border-blue-500/30">
+                  🤝
+                </div>
+                <div className="truncate">
+                  <p className="text-xs font-bold text-white truncate">Deal Closer AI</p>
+                  <p className="text-[10px] text-gray-400 truncate">Agente de Vendas</p>
+                </div>
+              </div>
+
+              <div className="bg-[#282828]/80 hover:bg-[#383838] transition-colors rounded-md p-2 flex items-center gap-2.5 overflow-hidden">
+                <div className="w-10 h-10 bg-emerald-600/30 rounded flex items-center justify-center text-base shrink-0 border border-emerald-500/30">
+                  👨‍🍳
+                </div>
+                <div className="truncate">
+                  <p className="text-xs font-bold text-white truncate">DevChef</p>
+                  <p className="text-[10px] text-gray-400 truncate">React & Node App</p>
+                </div>
+              </div>
+
             </div>
           </div>
         )}
 
-        {activeTab === 'projetos' && (
-          <div className="space-y-4 pt-2">
-            <h2 className="text-base font-bold text-[#1DB954]">Discografia de Projetos</h2>
+        {/* Recomendado para você (Experiência) */}
+        {(activeFilter === 'tudo' || activeFilter === 'experiencia') && (
+          <div>
+            <h2 className="text-lg font-bold text-white mb-2.5">Recomendado para você</h2>
             
-            <div className="space-y-3">
-              <div className="bg-[#181818] border border-gray-800 p-3.5 rounded-lg space-y-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-bold text-sm text-white">📊 Krypton AI</h3>
-                  <span className="text-[10px] text-[#1DB954]">TCC / Python</span>
+            <div className="bg-[#181818] p-3.5 rounded-lg border border-gray-800/80 space-y-2">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-[#1DB954]/20 border border-[#1DB954]/40 rounded flex items-center justify-center text-xl shrink-0">
+                  🛢️
                 </div>
-                <p className="text-xs text-gray-400">Sistema de Apoio à Decisão para investimentos em criptomoedas integrando APIs e score de risco automatizado.</p>
-              </div>
-
-              <div className="bg-[#181818] border border-gray-800 p-3.5 rounded-lg space-y-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-bold text-sm text-white">🐾 Petflow</h3>
-                  <span className="text-[10px] text-cyan-400">Full Stack</span>
-                </div>
-                <p className="text-xs text-gray-400">Sistema de gestão pet shop em ReactJS, Node.js/Express e PostgreSQL. API em produção no Render.</p>
-              </div>
-
-              <div className="bg-[#181818] border border-gray-800 p-3.5 rounded-lg space-y-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-bold text-sm text-white">🤝 Deal Closer AI</h3>
-                  <span className="text-[10px] text-blue-400">Agente IA</span>
-                </div>
-                <p className="text-xs text-gray-400">Agente de inteligência artificial para automação e apoio ao fechamento comercial.</p>
-              </div>
-
-              <div className="bg-[#181818] border border-gray-800 p-3.5 rounded-lg space-y-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-bold text-sm text-white">👨‍🍳 DevChef</h3>
-                  <span className="text-[10px] text-emerald-400">Full Stack</span>
-                </div>
-                <p className="text-xs text-gray-400">Aplicação web interativa para busca e gestão de receitas personalizadas para desenvolvedores.</p>
-              </div>
-
-              <div className="bg-[#181818] border border-gray-800 p-3.5 rounded-lg space-y-1">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-bold text-sm text-white">🛒 Gerenciador de Supermercado</h3>
-                  <span className="text-[10px] text-gray-400">Linguagem C</span>
-                </div>
-                <p className="text-xs text-gray-400">Sistema para controle de estoque e vendas com regras operacionais simuladas.</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'experiencia' && (
-          <div className="space-y-4 pt-2">
-            <h2 className="text-base font-bold text-[#1DB954]">Experiência Profissional</h2>
-            <div className="bg-[#181818] border border-gray-800 p-4 rounded-lg space-y-2">
-              <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-bold text-sm text-white">Estagiário em Análise de Dados</h3>
-                  <p className="text-xs text-[#1DB954]">Agência Nacional do Petróleo (ANP)</p>
+                  <span className="text-[10px] uppercase font-bold text-[#1DB954] tracking-wider">Experiência Atual</span>
+                  <h3 className="text-sm font-bold text-white">Análise de Dados na ANP</h3>
+                  <p className="text-xs text-gray-400">Agência Nacional do Petróleo • 2024 - 2026</p>
                 </div>
-                <span className="text-[10px] bg-gray-800 text-gray-300 px-2 py-0.5 rounded">2024 - 2026</span>
               </div>
-              <ul className="text-xs text-gray-400 list-disc list-inside space-y-1 pt-2">
-                <li>Atualização e histórico de dados relacionais em SQL.</li>
-                <li>Automações com Python reduzindo rotinas manuais.</li>
-                <li>Criação de dashboards no Power BI com DAX e Power Query.</li>
-                <li>Otimização de rotinas resultando em redução de 10% nas horas de trabalho mensais.</li>
-              </ul>
+
+              <p className="text-xs text-gray-300 leading-relaxed pt-1">
+                Pipelines ETL com Python, modelagem de dados SQL e automações com redução de 10% nas horas mensais.
+              </p>
             </div>
           </div>
         )}
 
-        {activeTab === 'contato' && (
-          <div className="space-y-4 pt-2">
-            <h2 className="text-base font-bold text-[#1DB954]">Canais de Contato</h2>
-            <div className="bg-[#181818] border border-gray-800 p-4 rounded-lg space-y-3">
-              <div className="space-y-2 text-xs text-gray-300">
-                <p><strong className="text-white">E-mail:</strong> samir.sfmss@gmail.com</p>
-                <p><strong className="text-white">Telefone:</strong> +55 21 97928-4282</p>
-                <p><strong className="text-white">Localização:</strong> Niterói, RJ</p>
+        {/* Sua Biblioteca Tech (Carrossel) */}
+        {activeFilter === 'tudo' && (
+          <div>
+            <h2 className="text-lg font-bold text-white mb-2.5">Sua Biblioteca Tech</h2>
+            <div className="flex gap-3 overflow-x-auto scrollbar-none pb-2">
+              
+              <div className="w-32 bg-[#181818] p-3 rounded-md shrink-0 border border-gray-800">
+                <div 
+                  style={{ background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.2) 0%, rgba(34, 197, 94, 0.2) 100%)' }}
+                  className="w-full aspect-square rounded mb-2 flex items-center justify-center text-2xl"
+                >
+                  🐍
+                </div>
+                <p className="text-xs font-bold text-white truncate">Python & ETL</p>
+                <p className="text-[10px] text-gray-400">Pandas, NumPy</p>
               </div>
 
-              <div className="flex flex-col gap-2 pt-2">
-                {/* Botão WhatsApp */}
-                <a
-                  href="https://wa.me/5521979284282"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold text-xs py-2.5 rounded-full text-center block transition-all active:scale-95 shadow-md"
+              <div className="w-32 bg-[#181818] p-3 rounded-md shrink-0 border border-gray-800">
+                <div 
+                  style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%)' }}
+                  className="w-full aspect-square rounded mb-2 flex items-center justify-center text-2xl"
                 >
-                  💬 Chamar no WhatsApp
-                </a>
-
-                {/* Botão E-mail Azul */}
-                <a
-                  href="mailto:samir.sfmss@gmail.com?subject=Contato%20via%20Portfólio"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full bg-[#007acc] hover:bg-[#005999] text-white font-bold text-xs py-2.5 rounded-full text-center block transition-all active:scale-95 shadow-md"
-                >
-                  ✉️ Enviar E-mail
-                </a>
+                  📊
+                </div>
+                <p className="text-xs font-bold text-white truncate">Power BI & SQL</p>
+                <p className="text-[10px] text-gray-400">DAX, OracleDB</p>
               </div>
+
+              <div className="w-32 bg-[#181818] p-3 rounded-md shrink-0 border border-gray-800">
+                <div 
+                  style={{ background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%)' }}
+                  className="w-full aspect-square rounded mb-2 flex items-center justify-center text-2xl"
+                >
+                  ⚛️
+                </div>
+                <p className="text-xs font-bold text-white truncate">React & Node</p>
+                <p className="text-[10px] text-gray-400">TypeScript, Express</p>
+              </div>
+
             </div>
           </div>
         )}
+
+        {/* Canais de Contato */}
+        <div>
+          <h2 className="text-lg font-bold text-white mb-2.5">Conectar</h2>
+          <div className="flex gap-2">
+            <a
+              href="https://wa.me/5521979284282"
+              target="_blank"
+              rel="noreferrer"
+              className="flex-1 bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold text-xs py-2.5 rounded-full text-center block transition-transform active:scale-95 shadow-md"
+            >
+              💬 WhatsApp
+            </a>
+            <a
+              href="mailto:samir.sfmss@gmail.com?subject=Contato%20via%20Portfólio"
+              target="_blank"
+              rel="noreferrer"
+              className="flex-1 bg-[#007acc] hover:bg-[#005999] text-white font-bold text-xs py-2.5 rounded-full text-center block transition-transform active:scale-95 shadow-md"
+            >
+              ✉️ E-mail
+            </a>
+          </div>
+        </div>
+
       </main>
 
-      {/* Mini Player Fixo na parte inferior */}
-      <div className="fixed bottom-14 left-2 right-2 bg-[#282828] p-2.5 rounded-md flex items-center justify-between shadow-2xl border border-gray-700/50 z-40">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-[#1DB954] rounded flex items-center justify-center text-black font-bold text-xs shrink-0">
-            ANP
+      {/* Mini Player Fixo */}
+      <div className="fixed bottom-16 left-2 right-2 bg-[#212121] rounded-md overflow-hidden shadow-2xl border border-white/5 z-40">
+        <div className="w-full bg-gray-700 h-0.5">
+          <div className="bg-[#1DB954] h-0.5 w-2/3"></div>
+        </div>
+
+        <div className="p-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-3 truncate">
+            <img
+              src="./perfil.jfif"
+              alt="Capa"
+              className="w-10 h-10 rounded object-cover shrink-0"
+            />
+            <div className="truncate">
+              <p className="text-xs font-bold text-white truncate">Samir Firmino — Estagiário de TI</p>
+              <p className="text-[10px] text-gray-400 truncate">Agência Nacional do Petróleo (ANP)</p>
+            </div>
           </div>
-          <div className="truncate">
-            <p className="text-xs font-bold text-white truncate">Análise de Dados & ETL</p>
-            <p className="text-[10px] text-gray-400 truncate">Samir Firmino • Tocando agora</p>
+
+          <div className="flex items-center gap-3 shrink-0 pr-1">
+            <a href="https://wa.me/5521979284282" target="_blank" rel="noreferrer" className="text-[#1DB954] text-xs font-bold">
+              CONTATO
+            </a>
+            <span className="text-white text-base">▶</span>
           </div>
         </div>
-        <div className="text-[#1DB954] text-sm pr-2">▶</div>
       </div>
 
-      {/* Barra de Navegação Inferior (Estilo App Spotify) */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-[#000000] border-t border-gray-800 flex justify-around py-2.5 text-[10px] text-gray-400 z-50">
+      {/* Barra de Navegação Inferior */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-[#121212] border-t border-gray-800/80 flex justify-around py-3 text-[10px] text-gray-400 z-50">
         <button
           onClick={() => setActiveTab('inicio')}
-          className={`flex flex-col items-center gap-0.5 transition-colors ${activeTab === 'inicio' ? 'text-white font-bold' : 'hover:text-white'}`}
+          className={`flex flex-col items-center gap-1 ${activeTab === 'inicio' ? 'text-white font-bold' : ''}`}
         >
           <span className="text-base">🏠</span>
           Início
         </button>
 
         <button
-          onClick={() => setActiveTab('projetos')}
-          className={`flex flex-col items-center gap-0.5 transition-colors ${activeTab === 'projetos' ? 'text-white font-bold' : 'hover:text-white'}`}
+          onClick={() => setActiveTab('buscar')}
+          className={`flex flex-col items-center gap-1 ${activeTab === 'buscar' ? 'text-white font-bold' : ''}`}
         >
-          <span className="text-base">🚀</span>
-          Projetos
+          <span className="text-base">🔍</span>
+          Buscar
         </button>
 
         <button
-          onClick={() => setActiveTab('experiencia')}
-          className={`flex flex-col items-center gap-0.5 transition-colors ${activeTab === 'experiencia' ? 'text-white font-bold' : 'hover:text-white'}`}
+          onClick={() => setActiveTab('biblioteca')}
+          className={`flex flex-col items-center gap-1 ${activeTab === 'biblioteca' ? 'text-white font-bold' : ''}`}
         >
-          <span className="text-base">💼</span>
-          Experiência
-        </button>
-
-        <button
-          onClick={() => setActiveTab('contato')}
-          className={`flex flex-col items-center gap-0.5 transition-colors ${activeTab === 'contato' ? 'text-white font-bold' : 'hover:text-white'}`}
-        >
-          <span className="text-base">✉️</span>
-          Contato
+          <span className="text-base">📚</span>
+          Sua Biblioteca
         </button>
       </nav>
+
     </div>
   );
 };

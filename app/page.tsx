@@ -54,58 +54,139 @@ export default function Home() {
   const handleRunScript = (file: FileItem) => {
     setIsTerminalOpen(true);
 
-    const log: string[] = [
+    let log: string[] = [
       `$ python3 ./${file.name}`,
-      `[Executing...] Compilando script e processando dados...`,
+      `[Executing ${file.name}...] Compilando script e carregando metadados...`,
+      '--------------------------------------------------------------------------------',
     ];
 
     switch (file.id) {
       case 'sobre-mim':
         log.push(
-          `[SUCCESS] Executado sem erros (exit code 0).`,
-          `>>> SAÍDA: "Estudante de Sistemas de Informação focado em análise de dados, ETL em Python e SQL."`
+          '📌 DESENVOLVEDOR: Samir Firmino Martins de Sousa',
+          '🎯 OBJETIVO: Apresentação profissional e foco de carreira.',
+          '🛠️ STACK: Python, SQL, Power BI, TypeScript, ReactJS',
+          '💡 RESUMO: Estudante de Sistemas de Informação (UniLaSalle - RJ) focado em análise de dados, ETL e automação de processos.',
+          '',
+          '[SUCCESS] Script executado com sucesso (exit code 0).'
         );
         break;
 
       case 'experiencia':
         log.push(
-          `[SUCCESS] Executado sem erros (exit code 0).`,
-          `>>> EMPRESA: Agência Nacional do Petróleo (ANP)`,
-          `>>> CARGO: Estagiário em Análise de Dados`,
-          `>>> IMPACTO: Otimização de processos ETL/SQL e redução de 10% no total de horas mensais.`
+          '📌 EXPERIÊNCIA: Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP)',
+          '🎯 OBJETIVO: Otimização de rotinas corporativas e gestão de histórico de dados.',
+          '🛠️ STACK: SQL, Python, Power BI, OracleDB, DAX, Power Query',
+          '🏗️ COMO FOI FEITO:',
+          '   • Modelagem e atualização de tabelas relacionais em banco SQL.',
+          '   • Automação de pipelines de dados com scripts Python (Pandas/NumPy).',
+          '   • Construção de dashboards estratégicos no Power BI com DAX avançado.',
+          '📈 RESULTADO: Redução de 10% nas horas de trabalho mensais das equipes operacionais.',
+          '',
+          '[SUCCESS] Script executado com sucesso (exit code 0).'
         );
         break;
 
+      case 'krypton-ai':
       case 'tcc-projeto':
         log.push(
-          `[SUCCESS] Executado sem erros (exit code 0).`,
-          `>>> SISTEMA: Support Decision System - Criptomoedas`,
-          `>>> STATUS: Coleta de dados via API ativa | Score de risco calculado em tempo real.`
+          '📌 PROJETO: Krypton AI (Trabalho de Conclusão de Curso - TCC)',
+          '🎯 OBJETIVO: Sistema de Apoio à Decisão para investimentos em criptomoedas com score de risco automatizado.',
+          '🛠️ STACK: Python, REST APIs, WebSockets, SQL, ReactJS',
+          '🏗️ COMO FOI FEITO:',
+          '   • Consumo de dados de mercado via APIs e WebSockets em tempo real.',
+          '   • Algoritmo em Python calculando indicador de risco baseado em volatilidade e sentimento.',
+          '   • Interface interativa para suporte à tomada de decisão de investidores.',
+          '',
+          '[SUCCESS] Script executado com sucesso (exit code 0).'
+        );
+        break;
+
+      case 'petflow':
+        log.push(
+          '📌 PROJETO: Petflow (Full Stack System)',
+          '🎯 OBJETIVO: Plataforma web para gestão operacional e automação de rotinas em pet shops.',
+          '🛠️ STACK: ReactJS, Node.js, Express, PostgreSQL, Render Cloud',
+          '🏗️ COMO FOI FEITO:',
+          '   • Frontend reativo e moderno construído com ReactJS e TypeScript.',
+          '   • Backend robusto em Node.js / Express lidando com as regras de negócio.',
+          '   • Banco de dados relacional PostgreSQL modelado para controle financeiro e de estoque.',
+          '   • API RESTful deployada e em produção na plataforma Render.',
+          '',
+          '[SUCCESS] Script executado com sucesso (exit code 0).'
+        );
+        break;
+
+      case 'deal-closer-ai':
+        log.push(
+          '📌 PROJETO: Deal Closer AI (Agente de Inteligência Artificial)',
+          '🎯 OBJETIVO: Agente inteligente orientado a vendas para suporte a fechamento comercial.',
+          '🛠️ STACK: Python, LLM APIs, Automação de Workflows',
+          '🏗️ COMO FOI FEITO:',
+          '   • Processamento de linguagem natural no histórico de mensagens de leads.',
+          '   • Classificação automatizada de intenção de compra e priorização de pipeline.',
+          '   • Geração de respostas estratégicas para apoiar os consultores de vendas.',
+          '',
+          '[SUCCESS] Script executado com sucesso (exit code 0).'
+        );
+        break;
+
+      case 'devchef':
+        log.push(
+          '📌 PROJETO: DevChef (Full Stack Web App)',
+          '🎯 OBJETIVO: Plataforma de busca e recomendação de receitas personalizadas para devs.',
+          '🛠️ STACK: ReactJS, TypeScript, Node.js, Tailwind CSS',
+          '🏗️ COMO FOI FEITO:',
+          '   • Interface web focada em alta usabilidade e busca rápida por ingredientes.',
+          '   • Integração com API de receitas e filtro por tempo de preparo e macros.',
+          '',
+          '[SUCCESS] Script executado com sucesso (exit code 0).'
+        );
+        break;
+
+      case 'supermercado':
+        log.push(
+          '📌 PROJETO: Gerenciador de Supermercado',
+          '🎯 OBJETIVO: Controle de estoque e simulação de caixa registradora em terminal.',
+          '🛠️ STACK: Linguagem C (Estrutura de dados e ponteiros)',
+          '🏗️ COMO FOI FEITO:',
+          '   • Algoritmos de ordenação e busca para controle rigoroso de inventário.',
+          '   • Regras operacionais simuladas com validação de entradas e vendas.',
+          '',
+          '[SUCCESS] Script executado com sucesso (exit code 0).'
         );
         break;
 
       case 'habilidades':
         log.push(
-          `[JSON PARSED]: Dados válidos.`,
-          `>>> LINGUAGENS: Python, SQL, C, Java`,
-          `>>> BI & BANCOS: Power BI, OracleDB, PostgreSQL, SQL Server`
+          '📌 MAPEAMENTO DE STACK TÉCNICA',
+          '🎯 OBJETIVO: Resumo de competências operacionais e ferramentas de domínio.',
+          '🛠️ TECNOLOGIAS:',
+          '   • Linguagens: Python, SQL, C, Java, TypeScript, JavaScript',
+          '   • Dados & BI: Power BI (DAX / Power Query), Pandas, NumPy, ETL',
+          '   • Bancos de Dados: PostgreSQL, OracleDB, SQL Server',
+          '   • Web & DevOps: ReactJS, Node.js, Express, Git, GitHub, Docker, n8n',
+          '',
+          '[SUCCESS] Script executado com sucesso (exit code 0).'
         );
         break;
 
       case 'contato':
         log.push(
-          `=== CANAIS DE CONTATO DE SAMIR FIRMINO ===`,
-          `LinkedIn: https://www.linkedin.com/in/samir-firmino-573322265`,
-          `GitHub:   https://github.com/samirsousa`,
-          `E-mail:   samir.sfmss@gmail.com`,
-          `Telefone: +55 21 97928-4282`
+          '📌 CANAIS OFICIAIS DE CONTATO',
+          '📧 E-mail: samir.sfmss@gmail.com',
+          '📱 Telefone / WhatsApp: +55 21 97928-4282',
+          '🔗 LinkedIn: https://www.linkedin.com/in/samir-firmino-573322265',
+          '🐙 GitHub: https://github.com/samirsousa',
+          '📍 Localização: Niterói, RJ - Brasil',
+          '',
+          '[SUCCESS] Script executado com sucesso (exit code 0).'
         );
         break;
 
       default:
         log.push(
-          `[SUCCESS] Código executado com sucesso (exit code 0).`,
-          `>>> SAÍDA: Processo concluído.`
+          '[SUCCESS] Código executado com sucesso (exit code 0).'
         );
     }
 

@@ -65,25 +65,27 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
       {/* Feed Estilo App Spotify */}
       <main className="px-4 flex-1 space-y-6 pt-1">
         
-        {/* Recentes em Grade de 2 Colunas */}
+        {/* Recentes em Grade de 2 Colunas com Logos Reais */}
         {(activeFilter === 'tudo' || activeFilter === 'projetos') && (
           <div>
             <h2 className="text-lg font-bold text-white mb-2.5">Recentes</h2>
             <div className="grid grid-cols-2 gap-2">
               
+              {/* Petflow - Logo React */}
               <div className="bg-[#282828]/80 hover:bg-[#383838] transition-colors rounded-md p-2 flex items-center gap-2.5 overflow-hidden">
-                <div className="w-10 h-10 bg-cyan-600/30 rounded flex items-center justify-center text-base shrink-0 border border-cyan-500/30">
-                  🐾
+                <div className="w-10 h-10 bg-[#1e293b] rounded flex items-center justify-center shrink-0 border border-cyan-500/30 p-2">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" className="w-full h-full object-contain" />
                 </div>
                 <div className="truncate">
                   <p className="text-xs font-bold text-white truncate">Petflow</p>
-                  <p className="text-[10px] text-gray-400 truncate">Full Stack System</p>
+                  <p className="text-[10px] text-gray-400 truncate">React • Node • Postgres</p>
                 </div>
               </div>
 
+              {/* Krypton AI - Logo Python */}
               <div className="bg-[#282828]/80 hover:bg-[#383838] transition-colors rounded-md p-2 flex items-center gap-2.5 overflow-hidden">
-                <div className="w-10 h-10 bg-purple-600/30 rounded flex items-center justify-center text-base shrink-0 border border-purple-500/30">
-                  📊
+                <div className="w-10 h-10 bg-[#1e293b] rounded flex items-center justify-center shrink-0 border border-purple-500/30 p-2">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" className="w-full h-full object-contain" />
                 </div>
                 <div className="truncate">
                   <p className="text-xs font-bold text-white truncate">Krypton AI</p>
@@ -91,19 +93,21 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
                 </div>
               </div>
 
+              {/* Deal Closer AI - Logo Python */}
               <div className="bg-[#282828]/80 hover:bg-[#383838] transition-colors rounded-md p-2 flex items-center gap-2.5 overflow-hidden">
-                <div className="w-10 h-10 bg-blue-600/30 rounded flex items-center justify-center text-base shrink-0 border border-blue-500/30">
-                  🤝
+                <div className="w-10 h-10 bg-[#1e293b] rounded flex items-center justify-center shrink-0 border border-blue-500/30 p-2">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" className="w-full h-full object-contain" />
                 </div>
                 <div className="truncate">
                   <p className="text-xs font-bold text-white truncate">Deal Closer AI</p>
-                  <p className="text-[10px] text-gray-400 truncate">Agente de Vendas</p>
+                  <p className="text-[10px] text-gray-400 truncate">Agente IA • Python</p>
                 </div>
               </div>
 
+              {/* DevChef - Logo TypeScript */}
               <div className="bg-[#282828]/80 hover:bg-[#383838] transition-colors rounded-md p-2 flex items-center gap-2.5 overflow-hidden">
-                <div className="w-10 h-10 bg-emerald-600/30 rounded flex items-center justify-center text-base shrink-0 border border-emerald-500/30">
-                  👨‍🍳
+                <div className="w-10 h-10 bg-[#1e293b] rounded flex items-center justify-center shrink-0 border border-emerald-500/30 p-2">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" className="w-full h-full object-contain" />
                 </div>
                 <div className="truncate">
                   <p className="text-xs font-bold text-white truncate">DevChef</p>
@@ -122,8 +126,8 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
             
             <div className="bg-[#181818] p-3.5 rounded-lg border border-gray-800/80 space-y-2">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-[#1DB954]/20 border border-[#1DB954]/40 rounded flex items-center justify-center text-xl shrink-0">
-                  🛢️
+                <div className="w-12 h-12 bg-[#1e293b] border border-[#1DB954]/40 rounded flex items-center justify-center shrink-0 p-2.5">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqldeveloper/sqldeveloper-original.svg" alt="SQL / Database" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <span className="text-[10px] uppercase font-bold text-[#1DB954] tracking-wider">Experiência Atual</span>
@@ -139,7 +143,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
           </div>
         )}
 
-        {/* Sua Biblioteca Tech (Carrossel) */}
+        {/* Sua Biblioteca Tech (Carrossel com Logos Reais) */}
         {activeFilter === 'tudo' && (
           <div>
             <h2 className="text-lg font-bold text-white mb-2.5">Sua Biblioteca Tech</h2>
@@ -147,10 +151,10 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
               
               <div className="w-32 bg-[#181818] p-3 rounded-md shrink-0 border border-gray-800">
                 <div 
-                  style={{ background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.2) 0%, rgba(34, 197, 94, 0.2) 100%)' }}
-                  className="w-full aspect-square rounded mb-2 flex items-center justify-center text-2xl"
+                  style={{ background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(34, 197, 94, 0.15) 100%)' }}
+                  className="w-full aspect-square rounded mb-2 flex items-center justify-center p-5"
                 >
-                  🐍
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" className="w-full h-full object-contain" />
                 </div>
                 <p className="text-xs font-bold text-white truncate">Python & ETL</p>
                 <p className="text-[10px] text-gray-400">Pandas, NumPy</p>
@@ -158,21 +162,21 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
               <div className="w-32 bg-[#181818] p-3 rounded-md shrink-0 border border-gray-800">
                 <div 
-                  style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%)' }}
-                  className="w-full aspect-square rounded mb-2 flex items-center justify-center text-2xl"
+                  style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%)' }}
+                  className="w-full aspect-square rounded mb-2 flex items-center justify-center p-5"
                 >
-                  📊
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="SQL / Postgres" className="w-full h-full object-contain" />
                 </div>
-                <p className="text-xs font-bold text-white truncate">Power BI & SQL</p>
-                <p className="text-[10px] text-gray-400">DAX, OracleDB</p>
+                <p className="text-xs font-bold text-white truncate">SQL & Databases</p>
+                <p className="text-[10px] text-gray-400">PostgreSQL, OracleDB</p>
               </div>
 
               <div className="w-32 bg-[#181818] p-3 rounded-md shrink-0 border border-gray-800">
                 <div 
-                  style={{ background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%)' }}
-                  className="w-full aspect-square rounded mb-2 flex items-center justify-center text-2xl"
+                  style={{ background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%)' }}
+                  className="w-full aspect-square rounded mb-2 flex items-center justify-center p-5"
                 >
-                  ⚛️
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" className="w-full h-full object-contain" />
                 </div>
                 <p className="text-xs font-bold text-white truncate">React & Node</p>
                 <p className="text-[10px] text-gray-400">TypeScript, Express</p>

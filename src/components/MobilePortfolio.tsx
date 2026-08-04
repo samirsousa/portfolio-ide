@@ -10,7 +10,8 @@ import {
   IoHomeOutline, 
   IoLogoWhatsapp,
   IoHeartOutline,
-  IoHeart 
+  IoHeart,
+  IoMusicalNotesSharp
 } from "react-icons/io5";
 import { FaLinkedinIn, FaRegEnvelope } from "react-icons/fa";
 
@@ -25,7 +26,7 @@ interface Track {
   techs: string;
   desc: string;
   iconUrl: string;
-  mediaUrl?: string; // Link de vídeo/GIF para a prévia do projeto
+  mediaUrl?: string;
   color: string;
   category: 'projetos' | 'experiencia';
 }
@@ -89,12 +90,12 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
   const [currentTrack, setCurrentTrack] = useState<Track>(tracks[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPlayerExpanded, setIsPlayerExpanded] = useState(false);
-  const [isPlayerDismissed, setIsPlayerDismissed] = useState(false); // Controle de exibição do Mini Player
+  const [isPlayerDismissed, setIsPlayerDismissed] = useState(false);
   const [showVideoPreview, setShowVideoPreview] = useState(false);
   const [likedTracks, setLikedTracks] = useState<string[]>(['petflow', 'anp']);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Estados para capturar gesto de swipe/arraste para baixo
+  // Captura do gesto de toque Y (para swipe cima e baixo)
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
 
   const toggleLike = (id: string, e?: React.MouseEvent) => {
@@ -108,22 +109,29 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
     setCurrentTrack(track);
     setIsPlaying(true);
     setShowVideoPreview(false);
-    setIsPlayerDismissed(false); // Reexibe o player caso estivesse oculto
+    setIsPlayerDismissed(false);
   };
 
-  // Manipuladores de Toque para arrastar para baixo e fechar
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartY(e.touches[0].clientY);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
+  // Manipulador de swipe no Mini Player (Arraste para baixo = fecha)
+  const handlePlayerTouchEnd = (e: React.TouchEvent) => {
     if (touchStartY === null) return;
     const touchEndY = e.changedTouches[0].clientY;
     const diffY = touchEndY - touchStartY;
 
-    // Se arrastou mais de 40px para baixo
     if (diffY > 40) {
       setIsPlayerDismissed(true);
+    }
+    setTouchStartY(null);
+  };
+
+  // Manipulador de swipe na Barra Inferior (Arraste para cima = reabre)
+  const handleNavTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartY === null) return;
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffY = touchStartY - touchEndY; // Diferença invertida para detectar subida
+
+    if (diffY > 30 && isPlayerDismissed) {
+      setIsPlayerDismissed(false);
     }
     setTouchStartY(null);
   };
@@ -411,12 +419,23 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
       </main>
 
-      {/* 3. Mini Player Fixo no Rodapé (Arrastar p/ baixo ou clicar no ✕ fecha) */}
+      {/* Botão/Pílula Flutuante de Restaurar Player quando Minimizado */}
+      {isPlayerDismissed && (
+        <button
+          onClick={() => setIsPlayerDismissed(false)}
+          style={{ bottom: '68px' }}
+          className="fixed right-4 bg-[#1DB954] text-black text-xs font-bold px-3 py-1.5 rounded-full shadow-2xl flex items-center gap-1.5 z-40 active:scale-95 transition-transform animate-bounce"
+        >
+          <IoMusicalNotesSharp size={14} /> Restaurar Player
+        </button>
+      )}
+
+      {/* 3. Mini Player Fixo no Rodapé */}
       {!isPlayerDismissed && (
         <div
           onClick={() => setIsPlayerExpanded(true)}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          onTouchStart={(e) => setTouchStartY(e.touches[0].clientY)}
+          onTouchEnd={handlePlayerTouchEnd}
           style={{ bottom: '64px' }}
           className="fixed left-2 right-2 bg-[#212121] rounded-lg overflow-hidden shadow-2xl border border-white/10 z-40 cursor-pointer transition-all active:scale-98"
         >
@@ -586,8 +605,10 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
         </div>
       )}
 
-      {/* 5. Barra de Navegação Inferior (Rodapé Estilo Nativo) */}
+      {/* 5. Barra de Navegação Inferior (com suporte a swipe para cima) */}
       <nav 
+        onTouchStart={(e) => setTouchStartY(e.touches[0].clientY)}
+        onTouchEnd={handleNavTouchEnd}
         style={{ height: '60px' }}
         className="fixed bottom-0 left-0 right-0 bg-[#121212]/95 backdrop-blur-sm border-t border-gray-800/80 flex justify-around py-2.5 text-[10px] text-gray-400 z-50 px-2"
       >

@@ -89,9 +89,13 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
   const [currentTrack, setCurrentTrack] = useState<Track>(tracks[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPlayerExpanded, setIsPlayerExpanded] = useState(false);
+  const [isPlayerDismissed, setIsPlayerDismissed] = useState(false); // Controle de exibição do Mini Player
   const [showVideoPreview, setShowVideoPreview] = useState(false);
   const [likedTracks, setLikedTracks] = useState<string[]>(['petflow', 'anp']);
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Estados para capturar gesto de swipe/arraste para baixo
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
 
   const toggleLike = (id: string, e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -104,6 +108,24 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
     setCurrentTrack(track);
     setIsPlaying(true);
     setShowVideoPreview(false);
+    setIsPlayerDismissed(false); // Reexibe o player caso estivesse oculto
+  };
+
+  // Manipuladores de Toque para arrastar para baixo e fechar
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartY === null) return;
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffY = touchEndY - touchStartY;
+
+    // Se arrastou mais de 40px para baixo
+    if (diffY > 40) {
+      setIsPlayerDismissed(true);
+    }
+    setTouchStartY(null);
   };
 
   const filteredTracks = tracks.filter((t) => {
@@ -121,7 +143,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
   });
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col justify-between pb-28 select-none relative overflow-hidden">
+    <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col justify-between pb-36 select-none relative overflow-hidden">
       
       {/* 1. Header Fixo com Troca para IDE & Filtros */}
       <header className="px-4 pt-4 pb-2 space-y-3 sticky top-0 bg-[#121212]/95 backdrop-blur-md z-30 border-b border-white/5">
@@ -283,14 +305,14 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
             </div>
 
             {/* Ações de Contato Rápidas */}
-            <div className="pt-2">
+            <div className="pt-2 pb-6">
               <h2 className="text-lg font-bold text-white mb-2.5">Conectar Profissionalmente</h2>
               <div className="flex gap-2">
                 <a
                   href="https://wa.me/5521979284282?text=Fala%20Samir,%20vi%20seu%20portf%C3%B3lio%20estilo%20Spotify%20e%20gostaria%20de%20conversar!"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold text-xs py-3 rounded-full text-center flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg"
+                  className="flex-1 bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold text-xs py-3.5 rounded-full text-center flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg"
                 >
                   <IoLogoWhatsapp size={16} /> WhatsApp
                 </a>
@@ -298,7 +320,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
                   href="https://www.linkedin.com/in/samir-firmino-573322265"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 bg-[#007acc] hover:bg-[#005999] text-white font-bold text-xs py-3 rounded-full text-center flex items-center justify-center gap-2 transition-transform active:scale-95"
+                  className="flex-1 bg-[#007acc] hover:bg-[#005999] text-white font-bold text-xs py-3.5 rounded-full text-center flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg"
                 >
                   <FaLinkedinIn size={16} /> LinkedIn
                 </a>
@@ -389,50 +411,63 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
       </main>
 
-      {/* 3. Mini Player Fixo no Rodapé (Clica para Expandir) */}
-      <div
-        onClick={() => setIsPlayerExpanded(true)}
-        style={{ bottom: '60px' }}
-        className="fixed left-2 right-2 bg-[#212121] rounded-lg overflow-hidden shadow-2xl border border-white/10 z-40 cursor-pointer transition-transform active:scale-98"
-      >
-        <div className="w-full bg-gray-800 h-0.5">
-          <div className={`bg-[#1DB954] h-0.5 ${isPlaying ? 'w-3/4 transition-all duration-1000' : 'w-1/4'}`}></div>
-        </div>
+      {/* 3. Mini Player Fixo no Rodapé (Arrastar p/ baixo ou clicar no ✕ fecha) */}
+      {!isPlayerDismissed && (
+        <div
+          onClick={() => setIsPlayerExpanded(true)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          style={{ bottom: '64px' }}
+          className="fixed left-2 right-2 bg-[#212121] rounded-lg overflow-hidden shadow-2xl border border-white/10 z-40 cursor-pointer transition-all active:scale-98"
+        >
+          {/* Indicador sutil de puxar para baixo */}
+          <div className="w-8 h-1 bg-gray-600/60 rounded-full mx-auto my-1"></div>
 
-        <div className="p-2.5 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 truncate flex-1">
-            <div className="w-10 h-10 bg-[#121212] rounded p-1.5 shrink-0 border border-white/10">
-              <img src={currentTrack.iconUrl} alt="Icon" className="w-full h-full object-contain" />
+          <div className="px-2.5 pb-2.5 pt-0.5 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 truncate flex-1">
+              <div className="w-10 h-10 bg-[#121212] rounded p-1.5 shrink-0 border border-white/10">
+                <img src={currentTrack.iconUrl} alt="Icon" className="w-full h-full object-contain" />
+              </div>
+              <div className="truncate flex-1">
+                <p className="text-xs font-bold text-white truncate">{currentTrack.title} — {currentTrack.subtitle}</p>
+                <p className="text-[10px] text-[#1DB954] font-medium truncate">Análise de Dados Jr / TI</p>
+              </div>
             </div>
-            <div className="truncate flex-1">
-              <p className="text-xs font-bold text-white truncate">{currentTrack.title} — {currentTrack.subtitle}</p>
-              <p className="text-[10px] text-[#1DB954] font-medium truncate">Análise de Dados Jr / TI</p>
+
+            <div className="flex items-center gap-3 shrink-0 pr-1">
+              <button
+                onClick={(e) => toggleLike(currentTrack.id, e)}
+                className="p-1 active:scale-125 transition-transform"
+              >
+                {likedTracks.includes(currentTrack.id) ? (
+                  <IoHeart size={18} className="text-[#1DB954]" />
+                ) : (
+                  <IoHeartOutline size={18} className="text-gray-400 hover:text-white" />
+                )}
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsPlaying(!isPlaying);
+                }}
+                className="text-white active:scale-90 transition-transform p-1"
+              >
+                {isPlaying ? <IoPauseSharp size={20} /> : <IoPlaySharp size={20} />}
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsPlayerDismissed(true);
+                }}
+                className="text-gray-400 hover:text-white p-1 text-xs font-bold"
+                title="Fechar Player"
+              >
+                ✕
+              </button>
             </div>
           </div>
-
-          <div className="flex items-center gap-4 shrink-0 pr-1">
-            <button
-              onClick={(e) => toggleLike(currentTrack.id, e)}
-              className="p-1 active:scale-125 transition-transform"
-            >
-              {likedTracks.includes(currentTrack.id) ? (
-                <IoHeart size={20} className="text-[#1DB954]" />
-              ) : (
-                <IoHeartOutline size={20} className="text-gray-400 hover:text-white" />
-              )}
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsPlaying(!isPlaying);
-              }}
-              className="text-white active:scale-90 transition-transform p-1"
-            >
-              {isPlaying ? <IoPauseSharp size={22} /> : <IoPlaySharp size={22} />}
-            </button>
-          </div>
         </div>
-      </div>
+      )}
 
       {/* 4. MODAL EXPANSÍVEL: Full Screen Now Playing + Preview Profissional */}
       {isPlayerExpanded && (

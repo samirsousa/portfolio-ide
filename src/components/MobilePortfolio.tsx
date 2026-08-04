@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
-// Importação dos ícones profissionais (Spotify Style)
-import { IoPlaySharp, IoPauseSharp, IoPlaySkipBackSharp, IoPlaySkipForwardSharp, IoSearchOutline, IoLibraryOutline, IoHomeOutline, IoLogoWhatsapp } from "react-icons/io5";
+// Importação dos ícones profissionais SVG (Spotify Style)
+import { 
+  IoPlaySharp, 
+  IoPauseSharp, 
+  IoPlaySkipBackSharp, 
+  IoPlaySkipForwardSharp, 
+  IoSearchOutline, 
+  IoLibraryOutline, 
+  IoHomeOutline, 
+  IoLogoWhatsapp,
+  IoHeartOutline,
+  IoHeart 
+} from "react-icons/io5";
 import { FaLinkedinIn, FaRegEnvelope } from "react-icons/fa";
 
 interface MobilePortfolioProps {
@@ -27,7 +38,6 @@ const tracks: Track[] = [
     techs: 'React • Node.js • Express • PostgreSQL',
     desc: 'Sistema de gestão pet shop completo com API RESTful em produção no Render e banco PostgreSQL relacional.',
     iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
-    // mediaUrl: 'SEU_LINK_DE_VIDEO_OU_GIF_AQUI',
     color: 'from-cyan-900/80 via-slate-900 to-[#121212]',
     category: 'projetos',
   },
@@ -36,9 +46,8 @@ const tracks: Track[] = [
     title: 'Krypton AI',
     subtitle: 'TCC • Decision Support System',
     techs: 'Python • REST APIs • WebSockets • SQL',
-    desc: 'Sistema de Apoio à Decisão para investimentos em criptomoedas com score de risco calculado em tempo real.',
+    desc: 'Sistema de Apoio à Decisão para investimentos em criptomoedas com score de risco calculated em tempo real.',
     iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
-    // mediaUrl: 'SEU_LINK_DE_VIDEO_OU_GIF_AQUI',
     color: 'from-purple-900/80 via-slate-900 to-[#121212]',
     category: 'projetos',
   },
@@ -113,7 +122,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
   return (
     <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col justify-between pb-28 select-none relative overflow-hidden">
-
+      
       {/* 1. Header Fixo com Troca para IDE & Filtros */}
       <header className="px-4 pt-4 pb-2 space-y-3 sticky top-0 bg-[#121212]/95 backdrop-blur-md z-30 border-b border-white/5">
         <div className="flex justify-between items-center">
@@ -145,8 +154,9 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-3 py-1.5 rounded-full whitespace-nowrap capitalize transition-all ${activeFilter === filter ? 'bg-[#1DB954] text-black font-bold' : 'bg-[#282828] text-white'
-                  }`}
+                className={`px-3 py-1.5 rounded-full whitespace-nowrap capitalize transition-all ${
+                  activeFilter === filter ? 'bg-[#1DB954] text-black font-bold' : 'bg-[#282828] text-white'
+                }`}
               >
                 {filter}
               </button>
@@ -157,7 +167,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
       {/* 2. Conteúdo Dinâmico por Aba */}
       <main className="px-4 flex-1 space-y-6 pt-2">
-
+        
         {/* ABA: INÍCIO */}
         {activeTab === 'inicio' && (
           <>
@@ -201,10 +211,11 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
                   <div
                     key={track.id}
                     onClick={() => handleSelectTrack(track)}
-                    className={`p-2 rounded-md flex items-center gap-2.5 cursor-pointer transition-all active:scale-95 border ${currentTrack.id === track.id
+                    className={`p-2 rounded-md flex items-center gap-2.5 cursor-pointer transition-all active:scale-95 border ${
+                      currentTrack.id === track.id
                         ? 'bg-[#282828] border-[#1DB954]/50'
                         : 'bg-[#282828]/60 hover:bg-[#383838] border-transparent'
-                      }`}
+                    }`}
                   >
                     <div className="w-10 h-10 bg-[#1e293b] rounded flex items-center justify-center shrink-0 p-2 border border-white/10">
                       <img src={track.iconUrl} alt={track.title} className="w-full h-full object-contain" />
@@ -221,7 +232,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
             </div>
 
             {/* Destaque Principal: Experiência ANP */}
-            <div
+            <div 
               style={{ background: 'linear-gradient(90deg, rgba(2, 44, 34, 0.6) 0%, #181818 100%)' }}
               className="p-4 rounded-xl border border-emerald-500/20 space-y-3 relative overflow-hidden"
             >
@@ -358,8 +369,15 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
                         <p className="text-[10px] text-[#1DB954] font-medium">✓ Salvo na Biblioteca tech</p>
                       </div>
                     </div>
-                    <button onClick={(e) => toggleLike(track.id, e)} className="text-[#1DB954] text-lg active:scale-125 transition-transform p-1">
-                      ❤️
+                    <button 
+                      onClick={(e) => toggleLike(track.id, e)} 
+                      className="p-1 active:scale-125 transition-transform"
+                    >
+                      {likedTracks.includes(track.id) ? (
+                        <IoHeart size={20} className="text-[#1DB954]" />
+                      ) : (
+                        <IoHeartOutline size={20} className="text-gray-400 hover:text-white" />
+                      )}
                     </button>
                   </div>
                 ))}
@@ -393,9 +411,13 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
           <div className="flex items-center gap-4 shrink-0 pr-1">
             <button
               onClick={(e) => toggleLike(currentTrack.id, e)}
-              className="text-[#1DB954] text-sm active:scale-125 transition-transform"
+              className="p-1 active:scale-125 transition-transform"
             >
-              {likedTracks.includes(currentTrack.id) ? '❤️' : '🤍'}
+              {likedTracks.includes(currentTrack.id) ? (
+                <IoHeart size={20} className="text-[#1DB954]" />
+              ) : (
+                <IoHeartOutline size={20} className="text-gray-400 hover:text-white" />
+              )}
             </button>
             <button
               onClick={(e) => {
@@ -422,14 +444,21 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
               ✕
             </button>
             <span className="uppercase tracking-widest text-[10px] font-bold text-white/80">Tocando do Portfólio</span>
-            <button onClick={(e) => toggleLike(currentTrack.id, e)} className="text-[#1DB954] text-xl p-1 active:scale-125 transition-transform">
-              {likedTracks.includes(currentTrack.id) ? '❤️' : '🤍'}
+            <button 
+              onClick={(e) => toggleLike(currentTrack.id, e)} 
+              className="p-1 active:scale-125 transition-transform"
+            >
+              {likedTracks.includes(currentTrack.id) ? (
+                <IoHeart size={24} className="text-[#1DB954]" />
+              ) : (
+                <IoHeartOutline size={24} className="text-gray-300 hover:text-white" />
+              )}
             </button>
           </div>
 
           {/* Área Central: Capa ou Vídeo/GIF de Demonstração */}
           <div className="flex-1 flex flex-col items-center justify-center space-y-5 w-full min-h-0 py-4">
-
+            
             {/* Container da Mídia (Aspecto Quadrado Profissional) */}
             <div className="w-full max-w-sm aspect-square bg-[#1e1e1e] rounded-2xl p-4 border border-white/10 shadow-2xl flex items-center justify-center overflow-hidden shrink-0">
               {showVideoPreview && currentTrack.mediaUrl ? (

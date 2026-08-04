@@ -11,7 +11,8 @@ interface Track {
   techs: string;
   desc: string;
   iconUrl: string;
-  color: string; // Fundo gradiente dinâmico no player
+  mediaUrl?: string; // Link de vídeo/GIF para a prévia do projeto
+  color: string;
   category: 'projetos' | 'experiencia';
 }
 
@@ -23,6 +24,7 @@ const tracks: Track[] = [
     techs: 'React • Node.js • Express • PostgreSQL',
     desc: 'Sistema de gestão pet shop completo com API RESTful em produção no Render e banco PostgreSQL relacional.',
     iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+    mediaUrl: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z6NmptZnYzbGFzZHRiNXZ6cDYydmdyMnE1M2RrbnBwbWpud3ZxdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vR1v8k7Jt2I00w0/giphy.gif',
     color: 'from-cyan-900/80 via-slate-900 to-[#121212]',
     category: 'projetos',
   },
@@ -33,6 +35,7 @@ const tracks: Track[] = [
     techs: 'Python • REST APIs • WebSockets • SQL',
     desc: 'Sistema de Apoio à Decisão para investimentos em criptomoedas com score de risco calculado em tempo real.',
     iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+    mediaUrl: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Z3Nm1nYmtuOHQ5ZnY1MjlyNWpxY2Y2NXp0ZWkyMnhzMzdvN3RseCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26tn33aiTi1jkl6H6/giphy.gif',
     color: 'from-purple-900/80 via-slate-900 to-[#121212]',
     category: 'projetos',
   },
@@ -41,7 +44,7 @@ const tracks: Track[] = [
     title: 'Análise de Dados na ANP',
     subtitle: 'Agência Nacional do Petróleo • 2024 - 2026',
     techs: 'SQL • Python • Power BI • OracleDB',
-    desc: 'Pipelines ETL, modelagem relacional SQL e automações resultando em 10% de redução no tempo de processos mensais.',
+    desc: 'Pipelines ETL, modelagem relacional SQL e dashboards no Power BI resultando em 10% de redução no tempo de processos mensais.',
     iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqldeveloper/sqldeveloper-original.svg',
     color: 'from-emerald-900/80 via-slate-900 to-[#121212]',
     category: 'experiencia',
@@ -74,6 +77,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
   const [currentTrack, setCurrentTrack] = useState<Track>(tracks[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPlayerExpanded, setIsPlayerExpanded] = useState(false);
+  const [showVideoPreview, setShowVideoPreview] = useState(false);
   const [likedTracks, setLikedTracks] = useState<string[]>(['petflow', 'anp']);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -87,6 +91,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
   const handleSelectTrack = (track: Track) => {
     setCurrentTrack(track);
     setIsPlaying(true);
+    setShowVideoPreview(false);
   };
 
   const filteredTracks = tracks.filter((t) => {
@@ -105,7 +110,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
   return (
     <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col justify-between pb-28 select-none relative overflow-hidden">
-
+      
       {/* 1. Header Fixo com Troca para IDE & Filtros */}
       <header className="px-4 pt-4 pb-2 space-y-3 sticky top-0 bg-[#121212]/95 backdrop-blur-md z-30 border-b border-white/5">
         <div className="flex justify-between items-center">
@@ -137,8 +142,9 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-3 py-1.5 rounded-full whitespace-nowrap capitalize transition-all ${activeFilter === filter ? 'bg-[#1DB954] text-black font-bold' : 'bg-[#282828] text-white'
-                  }`}
+                className={`px-3 py-1.5 rounded-full whitespace-nowrap capitalize transition-all ${
+                  activeFilter === filter ? 'bg-[#1DB954] text-black font-bold' : 'bg-[#282828] text-white'
+                }`}
               >
                 {filter}
               </button>
@@ -149,10 +155,42 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
       {/* 2. Conteúdo Dinâmico por Aba */}
       <main className="px-4 flex-1 space-y-6 pt-2">
-
+        
         {/* ABA: INÍCIO */}
         {activeTab === 'inicio' && (
           <>
+            {/* NOVO: Dashboard de Métricas & KPIs de Carreira (Foco em Dados) */}
+            <div>
+              <h2 className="text-lg font-bold text-white mb-2.5 flex items-center gap-2">
+                <span>📈</span> Dashboard de Impacto
+              </h2>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-[#181818] p-3 rounded-lg border border-emerald-500/30 space-y-1">
+                  <span className="text-xs text-gray-400 font-medium">Horas na ANP</span>
+                  <p className="text-xl font-black text-[#1DB954]">-10%</p>
+                  <p className="text-[10px] text-gray-400">Redução de tempo em rotinas de dados</p>
+                </div>
+
+                <div className="bg-[#181818] p-3 rounded-lg border border-blue-500/30 space-y-1">
+                  <span className="text-xs text-gray-400 font-medium">Pipelines ETL</span>
+                  <p className="text-xl font-black text-blue-400">+5</p>
+                  <p className="text-[10px] text-gray-400">Automações em Python (Pandas)</p>
+                </div>
+
+                <div className="bg-[#181818] p-3 rounded-lg border border-purple-500/30 space-y-1">
+                  <span className="text-xs text-gray-400 font-medium">Bancos de Dados</span>
+                  <p className="text-xl font-black text-purple-400">4</p>
+                  <p className="text-[10px] text-gray-400">Postgres, OracleDB, SQLServer, MySQL</p>
+                </div>
+
+                <div className="bg-[#181818] p-3 rounded-lg border border-amber-500/30 space-y-1">
+                  <span className="text-xs text-gray-400 font-medium">Relatórios & BI</span>
+                  <p className="text-xl font-black text-amber-400">+15</p>
+                  <p className="text-[10px] text-gray-400">Dashboards com DAX & Power Query</p>
+                </div>
+              </div>
+            </div>
+
             {/* Seção Recentes em Grade de 2 Colunas */}
             <div>
               <h2 className="text-lg font-bold text-white mb-2.5">Mais Tocados</h2>
@@ -161,10 +199,11 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
                   <div
                     key={track.id}
                     onClick={() => handleSelectTrack(track)}
-                    className={`p-2 rounded-md flex items-center gap-2.5 cursor-pointer transition-all active:scale-95 border ${currentTrack.id === track.id
-                      ? 'bg-[#282828] border-[#1DB954]/50'
-                      : 'bg-[#282828]/60 hover:bg-[#383838] border-transparent'
-                      }`}
+                    className={`p-2 rounded-md flex items-center gap-2.5 cursor-pointer transition-all active:scale-95 border ${
+                      currentTrack.id === track.id
+                        ? 'bg-[#282828] border-[#1DB954]/50'
+                        : 'bg-[#282828]/60 hover:bg-[#383838] border-transparent'
+                    }`}
                   >
                     <div className="w-10 h-10 bg-[#1e293b] rounded flex items-center justify-center shrink-0 p-2 border border-white/10">
                       <img src={track.iconUrl} alt={track.title} className="w-full h-full object-contain" />
@@ -181,7 +220,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
             </div>
 
             {/* Destaque Principal: Experiência ANP */}
-            <div
+            <div 
               style={{ background: 'linear-gradient(90deg, rgba(2, 44, 34, 0.6) 0%, #181818 100%)' }}
               className="p-4 rounded-xl border border-emerald-500/20 space-y-3 relative overflow-hidden"
             >
@@ -234,7 +273,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
               <h2 className="text-lg font-bold text-white mb-2.5">Ações Rápidas</h2>
               <div className="flex gap-2">
                 <a
-                  href="https://wa.me/5521979284282"
+                  href="https://wa.me/5521979284282?text=Fala%20Samir,%20vi%20seu%20portf%C3%B3lio%20estilo%20Spotify%20e%20gostaria%20de%20conversar!"
                   target="_blank"
                   rel="noreferrer"
                   className="flex-1 bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold text-xs py-3 rounded-full text-center block transition-transform active:scale-95 shadow-lg"
@@ -328,7 +367,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
       </main>
 
-      {/* 3. Mini Player Fixo no Rodapé (Clica para Expandir) */}
+      {/* 3. Mini Player Fixo no Rodapé */}
       <div
         onClick={() => setIsPlayerExpanded(true)}
         className="fixed bottom-16 left-2 right-2 bg-[#212121] rounded-lg overflow-hidden shadow-2xl border border-white/10 z-40 cursor-pointer transition-transform active:scale-98"
@@ -368,11 +407,11 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
         </div>
       </div>
 
-      {/* 4. MODAL EXPANSÍVEL: Full Screen Now Playing View */}
+      {/* 4. MODAL EXPANSÍVEL: Full Screen Now Playing + Preview em Vídeo/GIF */}
       {isPlayerExpanded && (
         <div
           style={{ background: 'linear-gradient(180deg, #1e1b4b 0%, #0f172a 50%, #121212 100%)' }}
-          className="fixed inset-0 z-50 p-6 flex flex-col justify-between animate-in slide-in-from-bottom duration-300"
+          className="fixed inset-0 z-50 p-6 flex flex-col justify-between animate-in slide-in-from-bottom duration-300 overflow-y-auto"
         >
           {/* Header do Modal */}
           <div className="flex justify-between items-center text-xs text-gray-300">
@@ -385,21 +424,51 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
             </button>
           </div>
 
-          {/* Capa do Projeto em HD */}
-          <div className="my-auto space-y-6 flex flex-col items-center">
-            <div className="w-64 h-64 bg-[#1e1e1e] rounded-2xl p-8 border border-white/10 shadow-2xl flex items-center justify-center">
-              <img src={currentTrack.iconUrl} alt="Large Icon" className="w-full h-full object-contain" />
+          {/* Área Central: Capa ou Vídeo/GIF de Demonstração */}
+          <div className="my-auto space-y-4 flex flex-col items-center w-full">
+            
+            {/* Seletor: Ver Logo vs. Ver Prévia em Vídeo/GIF */}
+            {currentTrack.mediaUrl && (
+              <div className="flex gap-2 bg-black/40 p-1 rounded-full text-[10px]">
+                <button
+                  onClick={() => setShowVideoPreview(false)}
+                  className={`px-3 py-1 rounded-full transition-all ${!showVideoPreview ? 'bg-[#1DB954] text-black font-bold' : 'text-gray-300'}`}
+                >
+                  🖼️ Capa
+                </button>
+                <button
+                  onClick={() => setShowVideoPreview(true)}
+                  className={`px-3 py-1 rounded-full transition-all ${showVideoPreview ? 'bg-[#1DB954] text-black font-bold' : 'text-gray-300'}`}
+                >
+                  🎬 Ver em Ação (Preview)
+                </button>
+              </div>
+            )}
+
+            {/* Container da Mídia */}
+            <div className="w-full max-w-xs aspect-square bg-[#1e1e1e] rounded-2xl p-4 border border-white/10 shadow-2xl flex items-center justify-center overflow-hidden">
+              {showVideoPreview && currentTrack.mediaUrl ? (
+                <img
+                  src={currentTrack.mediaUrl}
+                  alt="Demonstração do Projeto"
+                  className="w-full h-full object-cover rounded-xl"
+                />
+              ) : (
+                <div className="w-32 h-32">
+                  <img src={currentTrack.iconUrl} alt="Logo" className="w-full h-full object-contain" />
+                </div>
+              )}
             </div>
 
             <div className="w-full text-left space-y-1">
-              <h2 className="text-2xl font-extrabold text-white">{currentTrack.title}</h2>
+              <h2 className="text-xl font-extrabold text-white">{currentTrack.title}</h2>
               <p className="text-xs font-medium text-[#1DB954]">{currentTrack.techs}</p>
-              <p className="text-xs text-gray-300 leading-relaxed pt-2">{currentTrack.desc}</p>
+              <p className="text-xs text-gray-300 leading-relaxed pt-1">{currentTrack.desc}</p>
             </div>
           </div>
 
           {/* Player Controls & Timeline */}
-          <div className="space-y-4">
+          <div className="space-y-4 pt-2">
             <div className="space-y-1">
               <div className="w-full bg-gray-700/60 h-1 rounded-full overflow-hidden">
                 <div className="bg-white h-full w-2/3"></div>
@@ -410,12 +479,13 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
               </div>
             </div>
 
-            <div className="flex justify-around items-center pt-2">
+            <div className="flex justify-around items-center">
               <button
                 onClick={() => {
                   const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
                   const prevIndex = (currentIndex - 1 + tracks.length) % tracks.length;
                   setCurrentTrack(tracks[prevIndex]);
+                  setShowVideoPreview(false);
                 }}
                 className="text-xl text-gray-300 hover:text-white"
               >
@@ -424,7 +494,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
 
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center text-xl font-bold shadow-xl active:scale-95 transition-transform"
+                className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center text-lg font-bold shadow-xl active:scale-95 transition-transform"
               >
                 {isPlaying ? '⏸' : '▶'}
               </button>
@@ -434,6 +504,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
                   const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
                   const nextIndex = (currentIndex + 1) % tracks.length;
                   setCurrentTrack(tracks[nextIndex]);
+                  setShowVideoPreview(false);
                 }}
                 className="text-xl text-gray-300 hover:text-white"
               >
@@ -442,10 +513,10 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
             </div>
 
             <a
-              href="https://wa.me/5521979284282"
+              href="https://wa.me/5521979284282?text=Fala%20Samir,%20vi%20o%20projeto%20no%20seu%20Spotify%20e%20quero%20conversar!"
               target="_blank"
               rel="noreferrer"
-              className="w-full bg-[#1DB954] text-black font-bold text-xs py-3 rounded-full text-center block mt-4"
+              className="w-full bg-[#1DB954] text-black font-bold text-xs py-3 rounded-full text-center block"
             >
               💬 Falar com o Desenvolvedor no WhatsApp
             </a>
@@ -453,7 +524,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
         </div>
       )}
 
-      {/* 5. Barra de Navegação Inferior (3 Abas Oficiais) */}
+      {/* 5. Barra de Navegação Inferior */}
       <nav className="fixed bottom-0 left-0 right-0 bg-[#121212] border-t border-gray-800/80 flex justify-around py-3 text-[10px] text-gray-400 z-40">
         <button
           onClick={() => setActiveTab('inicio')}

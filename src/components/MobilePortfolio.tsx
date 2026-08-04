@@ -46,7 +46,7 @@ const tracks: Track[] = [
     title: 'Krypton AI',
     subtitle: 'TCC • Decision Support System',
     techs: 'Python • REST APIs • WebSockets • SQL',
-    desc: 'Sistema de Apoio à Decisão para investimentos em criptomoedas com score de risco calculated em tempo real.',
+    desc: 'Sistema de Apoio à Decisão para investimentos em criptomoedas com score de risco calculado em tempo real.',
     iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
     color: 'from-purple-900/80 via-slate-900 to-[#121212]',
     category: 'projetos',
@@ -257,7 +257,7 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
               </button>
             </div>
 
-            {/* Carrossel da Stack */}
+            {/* Carrossel da Stack Tech */}
             <div>
               <h2 className="text-lg font-bold text-white mb-2.5">Sua Biblioteca Tech</h2>
               <div className="flex gap-3 overflow-x-auto scrollbar-none pb-2">
@@ -265,6 +265,8 @@ export const MobilePortfolio: React.FC<MobilePortfolioProps> = ({ onSwitchToIde 
                   { name: 'Python & ETL', detail: 'Pandas, NumPy, Automation', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
                   { name: 'SQL & Data', detail: 'PostgreSQL, OracleDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
                   { name: 'React & Node', detail: 'TypeScript, Express', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+                  { name: 'Linguagem C', detail: 'Estrutura de Dados & Ponteiros', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
+                  { name: 'JavaScript', detail: 'ES6+, Async, DOM Manipulation', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
                 ].map((item, idx) => (
                   <div key={idx} className="w-32 bg-[#181818] p-3 rounded-md shrink-0 border border-gray-800/80">
                     <div

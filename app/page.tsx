@@ -16,7 +16,7 @@ export default function Home() {
   const [openFiles, setOpenFiles] = useState<FileItem[]>([initialFiles[0]]);
   const [activeFile, setActiveFile] = useState<FileItem>(initialFiles[0]);
   const [isReadingMode, setIsReadingMode] = useState(false);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(true);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [theme, setTheme] = useState<'onedark' | 'dracula' | 'monokai'>('onedark');
@@ -39,6 +39,7 @@ export default function Home() {
       setOpenFiles([...openFiles, file]);
     }
     setActiveFile(file);
+    setIsSidebarOpen(false); // Fecha a barra no mobile ao escolher o arquivo
   };
 
   const handleCloseTab = (fileId: string, e: React.MouseEvent) => {
@@ -369,11 +370,18 @@ export default function Home() {
           <MobilePortfolio onSwitchToIde={() => setMobileView('ide')} />
         ) : (
           <div className={`flex flex-col h-screen w-screen overflow-hidden ${themeClasses[theme]} font-sans`}>
-            <div className="bg-[#007acc] text-white px-3 py-1.5 flex justify-between items-center text-xs font-medium">
-              <span>Modo IDE (VS Code)</span>
+            {/* Header com Ações Rápidas do Mobile */}
+            <div className="bg-[#007acc] text-white px-3 py-2 flex justify-between items-center text-xs font-medium shrink-0 z-30">
+              <button
+                onClick={() => setIsSidebarOpen((prev) => !prev)}
+                className="bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded text-xs font-bold flex items-center gap-1 active:scale-95 transition-transform"
+              >
+                📁 {isSidebarOpen ? 'Fechar Arquivos' : 'Abrir Arquivos'}
+              </button>
+
               <button
                 onClick={() => setMobileView('feed')}
-                className="bg-black/30 hover:bg-black/50 px-2 py-0.5 rounded text-[11px]"
+                className="bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded text-xs font-medium active:scale-95 transition-transform"
               >
                 📱 Voltar ao Feed
               </button>
@@ -381,7 +389,8 @@ export default function Home() {
 
             <TitleBar />
 
-            <div className="flex flex-1 overflow-hidden relative">
+            <div className="flex flex-1 overflow-hidden relative min-h-0">
+              {/* Sidebar Retrátil em Tela Cheia no Mobile */}
               <Sidebar
                 files={files}
                 activeFileId={activeFile.id}
@@ -390,7 +399,7 @@ export default function Home() {
                 onToggle={() => setIsSidebarOpen((prev) => !prev)}
               />
 
-              <div className="flex-1 flex flex-col overflow-hidden w-full">
+              <div className="flex-1 flex flex-col overflow-hidden w-full min-h-0">
                 <Editor
                   openFiles={openFiles}
                   activeFile={activeFile}
